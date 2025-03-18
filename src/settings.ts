@@ -1,10 +1,10 @@
 import { type App, PluginSettingTab, Setting } from "obsidian";
-import <%= data.interfaceName %> from "./main";
+import SimpleColoredFolder from "./main";
 
-export class <%= data.interfaceName %>SettingTab extends PluginSettingTab {
-	plugin: <%= data.interfaceName %>;
+export class SimpleColoredFolderSettingTab extends PluginSettingTab {
+	plugin: SimpleColoredFolder;
 
-	constructor(app: App, plugin: <%= data.interfaceName %>) {
+	constructor(app: App, plugin: SimpleColoredFolder) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}

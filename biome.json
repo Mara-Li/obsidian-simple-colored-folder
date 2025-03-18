@@ -76,37 +76,20 @@
 				"noUnsafeNegation": "error",
 				"useGetterReturn": "error",
 				"useValidTypeof": "error"
-			},
-			"nursery": {
-				"noDuplicateJsonKeys": "error"
 			}
 		},
-		"ignore": [
-			"**/npm node_modules",
-			"**/build",
-			"**/dist",
-			"**/src/i18n/locales"
-		]
+		"ignore": ["**/npm node_modules", "**/build", "**/dist", "**/src/i18n/locales"]
 	},
 	"overrides": [
 		{
-			"ignore": [
-				"**/*.js"
-			],
-			"include": [
-				"**/*.ts",
-				"**/*.tsx"
-			]
+			"ignore": ["**/*.js"],
+			"include": ["**/*.ts", "**/*.tsx"]
 		},
 		{
-			"include": [
-				"**/*.js"
-			]
+			"include": ["**/*.js"]
 		},
 		{
-			"include": [
-				"*.json"
-			]
+			"include": ["*.json"]
 		}
 	],
 	"formatter": {

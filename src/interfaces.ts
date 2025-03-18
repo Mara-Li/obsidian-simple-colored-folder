@@ -1,9 +1,9 @@
 
 
-export interface <%= data.interfaceName %>Settings {
+export interface SimpleColoredFolderSettings {
 	mySetting: string;
 }
 
-export const DEFAULT_SETTINGS: <%= data.interfaceName %>Settings = {
+export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 	mySetting: "default"
 };

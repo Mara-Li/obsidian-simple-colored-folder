@@ -170,6 +170,7 @@ const context = await esbuild.context({
 	minifyWhitespace: prod,
 	outdir: outDir,
 	plugins,
+	minify: prod,
 });
 
 if (prod) {

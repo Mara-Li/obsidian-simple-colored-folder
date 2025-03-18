@@ -1,6 +1,6 @@
 import { type App, Modal } from "obsidian";
 
-export class <%= data.interfaceName%>Modal extends Modal {
+export class SimpleColoredFolderModal extends Modal {
 	constructor(app: App) {
 		super(app);
 	}
