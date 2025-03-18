@@ -25,9 +25,11 @@
 			"ES2021",
 			"ES2022",
 			"DOM.Iterable"
-		]
+		],
+		"types": ["obsidian-typings", "node"]
 	},
 	"include": [
 		"**/*.ts"
-	]
+	],
+
 }

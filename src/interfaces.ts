@@ -1,9 +1,15 @@
-
+export type Prefix = {
+	bg: string;
+	color: string;
+};
 
 export interface SimpleColoredFolderSettings {
-	mySetting: string;
+	prefix: Prefix;
 }
 
 export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
-	mySetting: "default"
+	prefix: {
+		bg: "bg",
+		color: "col",
+	},
 };
