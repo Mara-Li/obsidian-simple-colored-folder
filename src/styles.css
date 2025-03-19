@@ -82,6 +82,21 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	border-radius: 5px;
 }
 
+.nav-files-container.node-insert-event
+	> div
+	> .tree-item.nav-folder
+	> .tree-item-self.nav-folder-title {
+	border-bottom: 1px solid var(--spf-color-border);
+	border-radius: 0;
+}
+
+.nav-files-container.node-insert-event
+	> div
+	> .tree-item.nav-folder.is-collapsed
+	> .tree-item-self.nav-folder-title {
+	border-bottom: 0;
+}
+
 /** ---- Settings ---- **/
 
 .spf textarea {

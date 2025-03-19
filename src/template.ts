@@ -4,7 +4,10 @@ import "uniformize";
 import i18next from "i18next";
 
 function standardize(str: string) {
-	return str.standardize().replace(/\s/g, "").replaceAll(".", "");
+	return str
+		.standardize()
+		.replace(/\s/g, "")
+		.replaceAll(/[\.!_]+/g, "");
 }
 
 export function generateName(prefix: Prefix, folder: string, cssVar = ""): Prefix {
@@ -36,13 +39,9 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		}
 	
 		.nav-files-container.node-insert-event>div>.tree-item.nav-folder>.tree-item-self.nav-folder-title[data-path="${folderName}"] {
-		  border-bottom: 1px solid var(${variableNames.color});
-		  border-radius: 0;
+		  --spf-color-border: var(${variableNames.color});
 		}
 		
-		.nav-files-container.node-insert-event>div>.tree-item.nav-folder.is-collapsed>.tree-item-self.nav-folder-title[data-path="${folderName}"] {
-		  border-bottom: 0;
-		}
 		
 		.tree-item.nav-folder:has([data-path="${folderName}"]) {
 		  background-color: var(${variableNames.bg}) !important;
