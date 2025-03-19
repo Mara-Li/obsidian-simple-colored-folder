@@ -37,14 +37,10 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		  border-radius: var(--FolderRadius);
 		}
 
-		.theme-light .nav-file-title[class*="is-active"][data-path^="${folderName}"],
-		.theme-dark .nav-file-title[class*="is-active"][data-path^="${folderName}"],
-		.theme-dark .nav-folder-title[data-path^="${folderName}"]:hover,
-		.theme-light .nav-folder-title[data-path^="${folderName}"]:hover,
-		.theme-dark .nav-file-title[data-path^="${folderName}"]:hover,
-		.theme-light .nav-file-title[data-path^="${folderName}"]:hover,
-		.theme-light .nav-folder-title[class*="is-active"][data-path^="${folderName}"],
-		.theme-dark .nav-folder-title[class*="is-active"][data-path^="${folderName}"] {
+		.nav-file-title[class*="is-active"][data-path^="${folderName}"],
+		.nav-folder-title[data-path^="${folderName}"]:hover,
+		.nav-file-title[data-path^="${folderName}"]:hover,
+		.nav-folder-title[class*="is-active"][data-path^="${folderName}"] {
 		  color: var(${variableNames.color}) !important;
 		  background-color: var(${variableNames.bg}) !important;
 		  filter: saturate(150%);
@@ -52,8 +48,7 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		
 		${dedent(remplaceTemplate(template, folderName, variableNames.bg, variableNames.color))}
 
-		
-		`);
+	`);
 }
 
 export function convertStyleSettings(
