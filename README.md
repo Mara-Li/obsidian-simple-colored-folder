@@ -34,6 +34,10 @@ In the plugin settings, you can customize :
 
 ![settings](./docs/plugin_settings.png)
 
+> [!NOTE]
+> If you needs, the variable `--spf-color-border` was created to customize the border bottom color under the folder name.
+> If needed, you can check the [styles.css](./src/styles.css) file to see the default style and override it in your custom CSS.
+
 ## 📥 Installation
 
 - [ ] From Obsidian's community plugins
