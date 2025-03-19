@@ -1,3 +1,8 @@
+## [0.0.2](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.1...0.0.2) (2025-03-19)
+### Features
+
+* add CSS variable for collapse icon color and refine indentation guide color ([bae237c](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/bae237c898319eb2808be4efad36b9722fac88b6))
+
 ## 0.0.1 (2025-03-19)
 ### Features
 
