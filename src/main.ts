@@ -74,7 +74,6 @@ export default class SimpleColoredFolder extends Plugin {
 		this.style.id = "simple-colored-folder";
 		this.style.setAttribute("type", "text/css");
 		this.style.textContent = this.createStyles(folders);
-		console.log(this.createStyles(folders));
 		document.head.appendChild(this.style);
 		this.reload();
 	}
