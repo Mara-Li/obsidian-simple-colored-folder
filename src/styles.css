@@ -44,11 +44,6 @@ body:not(.is-grabbing) .nav-folder-title:hover .nav-folder-collapse-indicator {
 	margin-top: 5px !important;
 }
 
-.nav-file-title[class*="is-active"]::before {
-	margin-top: 2px;
-	width: 22px;
-	height: 20px;
-}
 .nav-files-container.node-insert-event
 	> div
 	> .tree-item.nav-folder
