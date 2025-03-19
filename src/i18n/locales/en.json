@@ -4,6 +4,7 @@
     "color": "Text color",
     "folderName": "FolderName",
     "radius": "Folder radius",
+    "space": "Space between folder",
     "warning": "Warning"
   },
   "prefix": {

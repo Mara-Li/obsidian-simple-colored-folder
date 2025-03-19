@@ -6,26 +6,44 @@ import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces
 import { convertStyleSettings, convertToCSS, generateName, themes } from "./template";
 import dedent from "dedent";
 import { SimpleColoredFolderSettingTab } from "./settings";
+import { minifyCss, removeExtraNewLine } from "./utils";
 
 export default class SimpleColoredFolder extends Plugin {
 	settings!: SimpleColoredFolderSettings;
 	style: HTMLStyleElement | null = null;
 
-	createStyles(folders: TFolder[]) {
-		let darkTheme = `.theme-dark {`;
-		let lightTheme = `.theme-light {`;
-		let css = "";
-		let stylesSettings = dedent(`/* @settings
+	styleSettingsHeader() {
+		return dedent(`
+		/* @settings
 		name: ${this.manifest.name}
 		id: ${this.manifest.id}
 		settings:
       -
-        id: FolderRadius
-        type: variable-number
-        title: ${i18next.t("common.radius")}
-        default: 5
-        format: px
-      - `);
+          id: FolderRadius
+          type: variable-number-slider
+          title: ${i18next.t("common.radius")}
+          default: 5
+          min: 0
+          max: 20
+          step: 1
+          format: px
+      -
+          id: space-between
+          type: variable-number-slider
+          default: 0.3
+          max: 5
+          step: 0.1
+          min: 0
+          format: em
+          title: ${i18next.t("common.space")}
+      -`);
+	}
+
+	createStyles(folders: TFolder[]) {
+		let darkTheme = `.theme-dark {`;
+		let lightTheme = `.theme-light {`;
+		let css = "";
+		let stylesSettings = this.styleSettingsHeader();
 		for (const folder of folders) {
 			const folderName = folder.name;
 			const vn = generateName(this.settings.prefix, folderName, "--");
@@ -41,7 +59,7 @@ export default class SimpleColoredFolder extends Plugin {
 		darkTheme += "}";
 		lightTheme += "}";
 		stylesSettings = `${stylesSettings.replace(/-+$/, "").trimEnd()}\n*/`;
-		return `\n${stylesSettings}\n${darkTheme}\n${lightTheme}\n${css}`;
+		return `\n${removeExtraNewLine(stylesSettings)}\n${minifyCss(darkTheme)}\n${minifyCss(lightTheme)}\n${minifyCss(css)}`;
 	}
 
 	injectStyles() {

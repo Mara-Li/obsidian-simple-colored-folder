@@ -1,5 +1,6 @@
 :root {
 	--FolderRadius: 5px;
+	--space-between: 1px;
 }
 
 .nav-file-title,
@@ -79,7 +80,11 @@ body:not(.is-grabbing) .nav-folder-title:hover .nav-folder-collapse-indicator {
 .nav-file-title[class*="is-active"],
 .nav-file-title:hover,
 body:not(.is-grabbing) .nav-folder-title:hover {
-	border-radius: 5px;
+	border-radius: var(--FolderRadius);
+}
+
+.nav-files-container > div > .tree-item.nav-folder:not(.mod-root) {
+	margin-bottom: var(--space-between) !important;
 }
 
 /** ---- Settings ---- **/

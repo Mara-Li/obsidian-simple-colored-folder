@@ -2,13 +2,7 @@ import dedent from "dedent";
 import { DEFAULT_COLOR, type Prefix } from "./interfaces";
 import "uniformize";
 import i18next from "i18next";
-
-function standardize(str: string) {
-	return str
-		.standardize()
-		.replace(/\s/g, "")
-		.replaceAll(/[\.!_]+/g, "");
-}
+import { standardize } from "./utils";
 
 export function generateName(prefix: Prefix, folder: string, cssVar = ""): Prefix {
 	return {

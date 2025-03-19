@@ -4,6 +4,7 @@
     "color": "Couleur du texte",
     "folderName": "NomDossier",
     "radius": "Radius du dossier",
+    "space": "Espace entre les dossiers",
     "warning": "Attention"
   },
   "prefix": {
