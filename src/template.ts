@@ -41,7 +41,6 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		.tree-item.nav-folder:has([data-path="${folderName}"]) {
 		  background-color: var(${variableNames.bg}) !important;
 		  border-radius: var(--FolderRadius);
-		  --nav-indentation-guide-color: var(${variableNames.color});
 		}
 
 		.theme-light .nav-file-title[class*="is-active"][data-path^="${folderName}"],
