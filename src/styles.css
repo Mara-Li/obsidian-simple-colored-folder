@@ -1,0 +1,144 @@
+/* @settings
+name: Simple Colored Folder • Relation line
+id: simple-colored-folder-relation-line
+settings:
+
+    -
+        type: heading
+        level: 3
+        title: General
+        collapsed: false
+        id: heading-general
+    -
+        id: FolderRadius
+        type: variable-number
+        title: Folder Radius
+        description: Set the radius of the folder
+        default: 5
+        format: px
+*/
+:root {
+	/* folder colours */
+	/* line styles for nesting indicators */
+	--nestlinesize1: solid;
+	--nestlinestyle1: 2px;
+	--nestlinesize2: groove;
+	--nestlinestyle2: 2px;
+	--nestlinesize3: dashed;
+	--nestlinestyle3: 2px;
+	--FolderRadius: 5px;
+	--FoldTextMaster: var(--FoldText);
+	--inbox-font: 0, 18, 25;
+	--adjust-pc: 1.2em;
+	--adjust-mobile: 0.8em;
+	--size: 18px;
+}
+
+.theme-dark {
+	--FoldText: #ffffff44;
+	--nestlinecolor1: #ffffff44;
+	--nestlinecolor2: #ffffff44;
+	--nestlinecolor3: #ffffff44;
+}
+
+.theme-light {
+	--FoldText: #0000002c;
+	--nestlinecolor1: #00000025;
+	--nestlinecolor2: #00000025;
+	--nestlinecolor3: #00000025;
+}
+
+.nav-file-title,
+.nav-folder-title {
+	border-radius: 0;
+}
+
+body:not(.is-grabbing) .nav-folder-title:hover {
+	border-radius: 0;
+}
+
+body:not(.is-grabbing) .nav-file-title:hover .nav-folder-collapse-indicator,
+body:not(.is-grabbing) .nav-folder-title:hover .nav-folder-collapse-indicator {
+	background-color: transparent !important;
+}
+
+.nav-folder-collapse-indicator.collapse-icon svg.right-triangle {
+	color: currentColor !important;
+}
+
+.nav-file-title.is-being-dragged,
+.nav-folder-title.is-being-dragged {
+	background-color: #8e939349 !important;
+}
+
+.nav-folder-title.is-being-dragged-over {
+	background-color: transparent !important;
+	color: currentColor !important;
+	filter: saturate(500%) !important;
+}
+
+.CodeMirror-foldgutter-folded,
+.is-collapsed .nav-folder-collapse-indicator,
+.nav-folder-collapse-indicator {
+	color: currentColor !important;
+}
+
+.nav-files-container.node-insert-event
+	> div
+	> .tree-item.nav-folder
+	> .tree-item-self.nav-folder-title {
+	margin-top: 5px !important;
+}
+
+.nav-file-title[class*="is-active"]::before {
+	margin-top: 2px;
+	width: 22px;
+	height: 20px;
+}
+.nav-files-container.node-insert-event
+	> div
+	> .tree-item.nav-folder
+	> .tree-item-self.nav-folder-title {
+	margin-bottom: 0;
+}
+
+/*& Set up explorer container margins */
+
+.nav-files-container {
+	margin: 0 5px;
+}
+
+.nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-title {
+	color: var(--FoldText);
+	padding-left: 5px;
+	margin-top: 7px;
+	/* space between top level sections */
+	border-radius: var(--FolderRadius) var(--FolderRadius) 0 0;
+}
+
+.nav-folder.mod-root
+	> .nav-folder-children
+	> .nav-folder.is-collapsed
+	> .nav-folder-title {
+	border-radius: var(--FolderRadius);
+}
+
+.nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-children {
+	padding-left: 0;
+	border-top: var(--FoldText) 1px solid;
+	border-radius: 0 0 var(--FolderRadius) var(--FolderRadius);
+}
+
+.nav-file-title[class*="is-active"],
+.nav-file-title:hover,
+body:not(.is-grabbing) .nav-folder-title:hover {
+	border-radius: 5px;
+}
+
+/** ---- Settings ---- **/
+
+.spf-textarea textarea {
+	width: 100%;
+	height: 300px;
+	font-family: var(--font-monospace);
+}

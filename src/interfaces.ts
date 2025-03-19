@@ -5,6 +5,8 @@ export type Prefix = {
 
 export interface SimpleColoredFolderSettings {
 	prefix: Prefix;
+	customTemplate: string;
+	customStyleSettings: string;
 }
 
 export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
@@ -12,4 +14,6 @@ export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 		bg: "bg",
 		color: "col",
 	},
+	customTemplate: "",
+	customStyleSettings: "",
 };

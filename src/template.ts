@@ -9,7 +9,19 @@ export function generateName(prefix: Prefix, folder: string, cssVar = ""): Prefi
 	};
 }
 
-export function convertToCSS(folderName: string, prefix: Prefix) {
+function remplaceTemplate(
+	template: string,
+	folderName: string,
+	bg: string,
+	color: string
+) {
+	return template
+		.replace(/\${folderName}/g, folderName)
+		.replace(/\${bg}/g, bg)
+		.replace(/\${color}/g, color);
+}
+
+export function convertToCSS(folderName: string, prefix: Prefix, template: string) {
 	const variableNames = generateName(prefix, folderName, "--");
 	return dedent(`
 	/* ---- ${folderName} ---- */
@@ -22,16 +34,10 @@ export function convertToCSS(folderName: string, prefix: Prefix) {
 		  border-bottom: 1px solid var(${variableNames.bg});
 		}
 		
-		nav-folder:has([data-path^="${folderName}"]),
-		.nav-file:has([data-path^="${folderName}"]) {
-			  --nestlinecolor1: var(${variableNames.color}) !important;
-			  --nestlinecolor2: var(${variableNames.color}) !important;
-			  --nestlinecolor3: var(${variableNames.color}) !important;
-		}
-	
-		.nav-folder-title[data-path="${folderName}"],
-		.nav-folder-title[data-path="${folderName}"]+* {
+		.tree-item.nav-folder:has([data-path="${folderName}"]) {
 		  background-color: var(${variableNames.bg}) !important;
+		  border-radius: var(--FolderRadius);
+		  --nav-indentation-guide-color: var(${variableNames.color}) !important;
 		}
 
 		.theme-light .nav-file-title[class*="is-active"][data-path^="${folderName}"],
@@ -45,10 +51,19 @@ export function convertToCSS(folderName: string, prefix: Prefix) {
 		  color: var(${variableNames.color}) !important;
 		  background-color: var(${variableNames.bg}) !important;
 		  filter: saturate(150%);
-		}`);
+		}
+		
+		${dedent(remplaceTemplate(template, folderName, variableNames.bg, variableNames.color))}
+
+		
+		`);
 }
 
-export function convertStyleSettings(folderName: string, prefix: Prefix) {
+export function convertStyleSettings(
+	folderName: string,
+	prefix: Prefix,
+	template: string
+) {
 	const variableNames = generateName(prefix, folderName);
 	return `
         type: heading
@@ -73,5 +88,8 @@ export function convertStyleSettings(folderName: string, prefix: Prefix) {
         default-light: "#ad8c33"
         default-dark: "#ad8c33"
         opacity: false
+    
+    ${dedent(remplaceTemplate(template, folderName, variableNames.bg, variableNames.color))}
+    
     -`;
 }

@@ -1,10 +1,11 @@
 import i18next from "i18next";
-import { Plugin, Notice, type TFolder } from "obsidian";
+import { Plugin, Notice, TFolder, type TAbstractFile } from "obsidian";
 import { resources, translationLanguage } from "./i18n";
 
 import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
 import { convertStyleSettings, convertToCSS, generateName } from "./template";
 import dedent from "dedent";
+import { SimpleColoredFolderSettingTab } from "./settings";
 
 export default class SimpleColoredFolder extends Plugin {
 	settings!: SimpleColoredFolderSettings;
@@ -29,12 +30,16 @@ export default class SimpleColoredFolder extends Plugin {
 			lightTheme += dedent(`\n
 			${vn.bg}: #ffffff00;
 			${vn.color}: #ad8c33;`);
-			css += convertToCSS(folderName, this.settings.prefix);
-			stylesSettings += convertStyleSettings(folderName, this.settings.prefix);
+			css += convertToCSS(folderName, this.settings.prefix, this.settings.customTemplate);
+			stylesSettings += convertStyleSettings(
+				folderName,
+				this.settings.prefix,
+				this.settings.customStyleSettings
+			);
 		}
 		darkTheme += "}";
 		lightTheme += "}";
-		stylesSettings = `${stylesSettings.replace(/-$/, "").trimEnd()}\n*/`;
+		stylesSettings = `${stylesSettings.replace(/-+$/, "").trimEnd()}\n*/`;
 		return `\n${stylesSettings}\n${darkTheme}\n${lightTheme}\n${css}`;
 	}
 
@@ -44,6 +49,7 @@ export default class SimpleColoredFolder extends Plugin {
 			.filter(
 				(folder: TFolder) => folder.parent && folder.parent === this.app.vault.getRoot()
 			);
+		if (this.style) this.style.detach();
 		this.style = document.createElement("style");
 		this.style.id = "simple-colored-folder";
 		this.style.setAttribute("type", "text/css");
@@ -72,10 +78,25 @@ export default class SimpleColoredFolder extends Plugin {
 		}
 
 		this.injectStyles();
+		this.addSettingTab(new SimpleColoredFolderSettingTab(this.app, this));
+
+		this.app.vault.on("rename", (file) => {
+			this.injectToRoot(file);
+		});
+
+		this.app.vault.on("create", (file) => {
+			this.injectToRoot(file);
+		});
+	}
+
+	injectToRoot(file: TAbstractFile) {
+		if (file instanceof TFolder && file.parent === this.app.vault.getRoot())
+			this.injectStyles();
 	}
 
 	onunload() {
 		console.log(`[${this.manifest.name}] Unloaded`);
+		//remove the style
 		this.style?.detach();
 	}
 
