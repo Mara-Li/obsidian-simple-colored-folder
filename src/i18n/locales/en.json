@@ -1,6 +1,9 @@
 {
   "common": {
-    "folderName": "FolderName"
+    "background": "Background color",
+    "color": "Text color",
+    "folderName": "FolderName",
+    "radius": "Folder radius"
   },
   "prefix": {
     "settings": {
@@ -8,8 +11,6 @@
     }
   },
   "settings": {
-    "background": "Background color",
-    "color": "Text color",
     "customCss": {
       "desc": "Custom CSS template to generate a style from folders. Please use the following variables:",
       "title": "Custom CSS"
@@ -27,5 +28,6 @@
       "title": "Custom Style Settings",
       "without": "without the properties"
     }
-  }
+  },
+  "warning": "Please enable 'Style Settings' plugin"
 }

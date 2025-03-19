@@ -1,6 +1,7 @@
 import dedent from "dedent";
 import { DEFAULT_COLOR, type Prefix } from "./interfaces";
 import "uniformize";
+import i18next from "i18next";
 
 function standardize(str: string) {
 	return str.standardize().replace(/\s/g, "").replaceAll(".", "");
@@ -81,17 +82,17 @@ export function convertStyleSettings(
         title: ${folderName}
     -
         id: ${variableNames.bg}
-        description: Background
+        description: ${i18next.t("common.background")}
         format: hex
         opacity: true
         type: variable-themed-color
-        title: ${folderName} Background
+        title: ${folderName} ${i18next.t("common.background")}
         default-light: "${DEFAULT_COLOR}"
         default-dark: "${DEFAULT_COLOR}"
     -
         id: ${variableNames.color}
-        description: Font
-        title: ${folderName} Font
+        description: ${i18next.t("common.color")}
+        title: ${folderName} ${i18next.t("common.color")}
         type: variable-themed-color
         format: hex
         default-light: "${DEFAULT_COLOR}"

@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { Plugin, Notice, TFolder, type TAbstractFile } from "obsidian";
+import { Plugin, Notice, TFolder, type TAbstractFile, sanitizeHTMLToDom } from "obsidian";
 import { resources, translationLanguage } from "./i18n";
 
 import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
@@ -16,10 +16,16 @@ export default class SimpleColoredFolder extends Plugin {
 		let lightTheme = `.theme-light {`;
 		let css = "";
 		let stylesSettings = dedent(`/* @settings
-		name: ${this.manifest.name} • Colored Folder
+		name: ${this.manifest.name}
 		id: ${this.manifest.id}
 		settings:
-		    -`);
+      -
+        id: FolderRadius
+        type: variable-number
+        title: ${i18next.t("common.radius")}
+        default: 5
+        format: px
+      - `);
 		for (const folder of folders) {
 			const folderName = folder.name;
 			const vn = generateName(this.settings.prefix, folderName, "--");
@@ -50,8 +56,7 @@ export default class SimpleColoredFolder extends Plugin {
 		this.style.setAttribute("type", "text/css");
 		this.style.textContent = this.createStyles(folders);
 		document.head.appendChild(this.style);
-		this.app.workspace.trigger("css-change");
-		this.app.workspace.trigger("parse-style-settings");
+		this.reload();
 	}
 
 	async onload() {
@@ -68,8 +73,11 @@ export default class SimpleColoredFolder extends Plugin {
 
 		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
 		if (!styleSettings) {
-			new Notice("Please enable 'Style Settings' plugin");
-			return;
+			new Notice(
+				sanitizeHTMLToDom(
+					dedent`<span class="spf-warning">${i18next.t("warning")}</span>`
+				)
+			);
 		}
 
 		this.injectStyles();
@@ -89,10 +97,16 @@ export default class SimpleColoredFolder extends Plugin {
 			this.injectStyles();
 	}
 
+	reload() {
+		this.app.workspace.trigger("css-change");
+		this.app.workspace.trigger("parse-style-settings");
+	}
+
 	onunload() {
 		console.log(`[${this.manifest.name}] Unloaded`);
 		//remove the style
 		this.style?.detach();
+		this.reload();
 	}
 
 	async loadSettings() {

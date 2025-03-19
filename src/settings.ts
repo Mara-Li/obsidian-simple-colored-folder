@@ -28,14 +28,14 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 				})
 			);
 
-		new Setting(containerEl).setName(i18next.t("settings.color")).addText((text) =>
+		new Setting(containerEl).setName(i18next.t("common.color")).addText((text) =>
 			text.setValue(this.plugin.settings.prefix.color).onChange(async (value) => {
 				this.plugin.settings.prefix.color = value;
 				await this.plugin.saveSettings();
 			})
 		);
 
-		new Setting(containerEl).setName(i18next.t("settings.background")).addText((text) =>
+		new Setting(containerEl).setName(i18next.t("common.background")).addText((text) =>
 			text.setValue(this.plugin.settings.prefix.bg).onChange(async (value) => {
 				this.plugin.settings.prefix.bg = value;
 				await this.plugin.saveSettings();

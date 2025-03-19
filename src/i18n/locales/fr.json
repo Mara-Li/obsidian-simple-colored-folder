@@ -1,6 +1,9 @@
 {
   "common": {
-    "folderName": "NomDossier"
+    "background": "Couleur du fond",
+    "color": "Couleur du texte",
+    "folderName": "NomDossier",
+    "radius": "Radius du dossier"
   },
   "prefix": {
     "settings": {
@@ -8,8 +11,6 @@
     }
   },
   "settings": {
-    "background": "Couleur du fond",
-    "color": "Couleur du texte",
     "customCss": {
       "desc": "Modèle CSS personnalisé qui sera utilisé pour générer un CSS depuis les dossiers. Merci d'utiliser les variables suivantes : ",
       "title": "CSS personnalisé"
@@ -27,5 +28,6 @@
       "title": "Style Settings personnalisé",
       "without": "sans les propriétés"
     }
-  }
+  },
+  "warning": "Merci d'activer le module \"Style Settings\"."
 }
