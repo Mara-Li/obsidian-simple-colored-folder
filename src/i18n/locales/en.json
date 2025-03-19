@@ -3,7 +3,8 @@
     "background": "Background color",
     "color": "Text color",
     "folderName": "FolderName",
-    "radius": "Folder radius"
+    "radius": "Folder radius",
+    "warning": "Warning"
   },
   "prefix": {
     "settings": {
@@ -27,7 +28,8 @@
       "plugin": "the plugin",
       "title": "Custom Style Settings",
       "without": "without the properties"
-    }
+    },
+    "warning": "This will reset your Style Settings! "
   },
   "warning": "Please enable 'Style Settings' plugin"
 }

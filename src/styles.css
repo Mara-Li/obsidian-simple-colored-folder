@@ -89,7 +89,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 
 /** ---- Settings ---- **/
 
-.spf-textarea textarea {
+.spf textarea {
 	width: 100%;
 	height: 300px;
 	/*noinspection CssNoGenericFontName*/
@@ -98,4 +98,19 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 
 .spf-warning {
 	color: var(--text-error);
+}
+
+.spf code {
+	/*noinspection CssNoGenericFontName*/
+	font-family: var(--font-monospace);
+}
+
+.spf .no-border {
+	border: none;
+}
+
+.spf hr {
+	margin: 0;
+	--hr-color: var(--background-modifier-border);
+	--hr-thickness: 1px;
 }

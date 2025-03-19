@@ -3,7 +3,8 @@
     "background": "Couleur du fond",
     "color": "Couleur du texte",
     "folderName": "NomDossier",
-    "radius": "Radius du dossier"
+    "radius": "Radius du dossier",
+    "warning": "Attention"
   },
   "prefix": {
     "settings": {
@@ -27,7 +28,8 @@
       "plugin": "le module",
       "title": "Style Settings personnalisé",
       "without": "sans les propriétés"
-    }
+    },
+    "warning": "Cela aura pour conséquence de réinitialiser vos paramètres Style Settings ! "
   },
   "warning": "Merci d'activer le module \"Style Settings\"."
 }
