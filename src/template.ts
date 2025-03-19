@@ -75,17 +75,15 @@ export function convertStyleSettings(
         title: ${folderName}
     -
         id: ${variableNames.bg}
-        description: ${i18next.t("common.background")}
         format: hex
         opacity: true
         type: variable-themed-color
-        title: ${folderName} ${i18next.t("common.background")}
+        title: ${i18next.t("common.background")}
         default-light: "${DEFAULT_COLOR}"
         default-dark: "${DEFAULT_COLOR}"
     -
         id: ${variableNames.color}
-        description: ${i18next.t("common.color")}
-        title: ${folderName} ${i18next.t("common.color")}
+        title: ${i18next.t("common.color")}
         type: variable-themed-color
         format: hex
         default-light: "${DEFAULT_COLOR}"
