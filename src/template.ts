@@ -1,11 +1,15 @@
 import dedent from "dedent";
-import type { Prefix } from "./interfaces";
+import { DEFAULT_COLOR, type Prefix } from "./interfaces";
 import "uniformize";
+
+function standardize(str: string) {
+	return str.standardize().replace(/\s/g, "").replaceAll(".", "");
+}
 
 export function generateName(prefix: Prefix, folder: string, cssVar = ""): Prefix {
 	return {
-		bg: `${cssVar}${prefix.bg}-${folder.unidecode()}`,
-		color: `${cssVar}${prefix.color}-${folder.unidecode()}`,
+		bg: `${cssVar}${prefix.bg}-${standardize(folder)}`,
+		color: `${cssVar}${prefix.color}-${standardize(folder)}`,
 	};
 }
 
@@ -31,7 +35,12 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		}
 	
 		.nav-files-container.node-insert-event>div>.tree-item.nav-folder>.tree-item-self.nav-folder-title[data-path="${folderName}"] {
-		  border-bottom: 1px solid var(${variableNames.bg});
+		  border-bottom: 1px solid var(${variableNames.color});
+		  border-radius: 0;
+		}
+		
+		.nav-files-container.node-insert-event>div>.tree-item.nav-folder.is-collapsed>.tree-item-self.nav-folder-title[data-path="${folderName}"] {
+		  border-bottom: 0;
 		}
 		
 		.tree-item.nav-folder:has([data-path="${folderName}"]) {
@@ -77,19 +86,26 @@ export function convertStyleSettings(
         opacity: true
         type: variable-themed-color
         title: ${folderName} Background
-        default-light: "#ffffff00"
-        default-dark: "#ffffff00"
+        default-light: "${DEFAULT_COLOR}"
+        default-dark: "${DEFAULT_COLOR}"
     -
         id: ${variableNames.color}
         description: Font
         title: ${folderName} Font
         type: variable-themed-color
         format: hex
-        default-light: "#ad8c33"
-        default-dark: "#ad8c33"
+        default-light: "${DEFAULT_COLOR}"
+        default-dark: "${DEFAULT_COLOR}"
         opacity: false
     
     ${dedent(remplaceTemplate(template, folderName, variableNames.bg, variableNames.color))}
     
     -`;
+}
+
+export function themes(vn: Prefix) {
+	return dedent(`\n
+				${vn.bg}: "${DEFAULT_COLOR}";
+				${vn.color}: var(--nav-item-color);
+	`);
 }

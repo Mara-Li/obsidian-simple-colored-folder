@@ -16,36 +16,28 @@ settings:
         description: Set the radius of the folder
         default: 5
         format: px
+	-
+		id: FoldText
+		type: variable-themed-color
+		title: Folder Text Color
+		description: Set the color of the folder text
+		default-light: "#0000002c"
+        default-dark: "#ffffff44"
+
 */
 :root {
 	/* folder colours */
 	/* line styles for nesting indicators */
-	--nestlinesize1: solid;
-	--nestlinestyle1: 2px;
-	--nestlinesize2: groove;
-	--nestlinestyle2: 2px;
-	--nestlinesize3: dashed;
-	--nestlinestyle3: 2px;
 	--FolderRadius: 5px;
 	--FoldTextMaster: var(--FoldText);
-	--inbox-font: 0, 18, 25;
-	--adjust-pc: 1.2em;
-	--adjust-mobile: 0.8em;
-	--size: 18px;
 }
 
 .theme-dark {
 	--FoldText: #ffffff44;
-	--nestlinecolor1: #ffffff44;
-	--nestlinecolor2: #ffffff44;
-	--nestlinecolor3: #ffffff44;
 }
 
 .theme-light {
 	--FoldText: #0000002c;
-	--nestlinecolor1: #00000025;
-	--nestlinecolor2: #00000025;
-	--nestlinecolor3: #00000025;
 }
 
 .nav-file-title,

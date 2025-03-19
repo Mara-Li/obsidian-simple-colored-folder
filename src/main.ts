@@ -3,7 +3,7 @@ import { Plugin, Notice, TFolder, type TAbstractFile } from "obsidian";
 import { resources, translationLanguage } from "./i18n";
 
 import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
-import { convertStyleSettings, convertToCSS, generateName } from "./template";
+import { convertStyleSettings, convertToCSS, generateName, themes } from "./template";
 import dedent from "dedent";
 import { SimpleColoredFolderSettingTab } from "./settings";
 
@@ -23,13 +23,8 @@ export default class SimpleColoredFolder extends Plugin {
 		for (const folder of folders) {
 			const folderName = folder.name;
 			const vn = generateName(this.settings.prefix, folderName, "--");
-			darkTheme += dedent(`\n
-				${vn.bg}: #ffffff00;
-				${vn.color}: #ad8c33;
-				`);
-			lightTheme += dedent(`\n
-			${vn.bg}: #ffffff00;
-			${vn.color}: #ad8c33;`);
+			darkTheme += themes(vn);
+			lightTheme += themes(vn);
 			css += convertToCSS(folderName, this.settings.prefix, this.settings.customTemplate);
 			stylesSettings += convertStyleSettings(
 				folderName,

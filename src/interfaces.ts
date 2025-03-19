@@ -3,6 +3,8 @@ export type Prefix = {
 	color: string;
 };
 
+export const DEFAULT_COLOR = "#ffffff00";
+
 export interface SimpleColoredFolderSettings {
 	prefix: Prefix;
 	customTemplate: string;
