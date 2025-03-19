@@ -1,3 +1,8 @@
+## [0.0.5](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.4...0.0.5) (2025-03-19)
+### Features
+
+* add space setting for folder spacing and improve CSS handling ([d46287a](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/d46287afe2378125c6ebc32d196ddf9aaf415489))
+
 ## [0.0.4](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.3...0.0.4) (2025-03-19)
 
 ## [0.0.3](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.2...0.0.3) (2025-03-19)
