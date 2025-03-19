@@ -2,7 +2,7 @@
 
 Automagically add color to root folder, and customize it with Style Settings.
 
-![tree with colored folders](./docs/default_color.png)
+![tree with colored folders](./docs/assets/default_color.png)
 
 ## 📦 Features
 
@@ -22,7 +22,7 @@ Automagically add color to root folder, and customize it with Style Settings.
 3. Access Style settings to customize your folder color.
 4. Under the "Simple Colored folder" section, you can change colors for each root folder.
 
-![style settings](./docs/style_settings.png)
+![style settings](./docs/assets/style_settings.png)
 
 
 ## 🎨 Configuration
@@ -32,7 +32,7 @@ In the plugin settings, you can customize :
 - Custom CSS templates
 - Custom style settings template
 
-![settings](./docs/plugin_settings.png)
+![settings](./docs/assets/plugin_settings.png)
 
 > [!NOTE]
 > You can see some example of css template [here](./docs/snippets.md)
