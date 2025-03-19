@@ -19,3 +19,5 @@ export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 	customTemplate: "",
 	customStyleSettings: "",
 };
+
+export type StyleSettingValue = number | string | boolean;

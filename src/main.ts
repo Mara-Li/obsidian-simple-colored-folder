@@ -2,7 +2,12 @@ import i18next from "i18next";
 import { Plugin, Notice, TFolder, type TAbstractFile, sanitizeHTMLToDom } from "obsidian";
 import { resources, translationLanguage } from "./i18n";
 
-import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
+import {
+	DEFAULT_SETTINGS,
+	type Prefix,
+	type SimpleColoredFolderSettings,
+	type StyleSettingValue,
+} from "./interfaces";
 import { convertStyleSettings, convertToCSS, generateName, themes } from "./template";
 import dedent from "dedent";
 import { SimpleColoredFolderSettingTab } from "./settings";
@@ -62,20 +67,19 @@ export default class SimpleColoredFolder extends Plugin {
 		return `\n${removeExtraNewLine(stylesSettings)}\n${minifyCss(darkTheme)}\n${minifyCss(lightTheme)}\n${minifyCss(css)}`;
 	}
 
-	injectStyles() {
-		this.style?.detach();
+	injectStyles(reload = true) {
 		const folders = this.app.vault
 			.getAllFolders()
 			.filter(
 				(folder: TFolder) => folder.parent && folder.parent === this.app.vault.getRoot()
 			);
-		if (this.style) this.style.detach();
+		this.style?.detach();
 		this.style = document.createElement("style");
 		this.style.id = "simple-colored-folder";
 		this.style.setAttribute("type", "text/css");
 		this.style.textContent = this.createStyles(folders);
 		document.head.appendChild(this.style);
-		this.reload();
+		if (reload) this.reload();
 	}
 
 	async onload() {
@@ -100,15 +104,60 @@ export default class SimpleColoredFolder extends Plugin {
 		}
 
 		this.injectStyles();
+		this.app.workspace.trigger("parse-style-settings");
 		this.addSettingTab(new SimpleColoredFolderSettingTab(this.app, this));
 
-		this.app.vault.on("rename", (file) => {
-			this.injectToRoot(file);
+		this.app.vault.on("rename", async (file, oldPath) => {
+			await this.renameCss(file, oldPath);
 		});
 
 		this.app.vault.on("create", (file) => {
 			this.injectToRoot(file);
 		});
+	}
+
+	async renameCss(newPath: TAbstractFile, oldPath: string) {
+		const styleSettingPlugin = this.app.plugins.getPlugin("obsidian-style-settings");
+		if (!styleSettingPlugin) return;
+		if (newPath instanceof TFolder && newPath.parent === this.app.vault.getRoot()) {
+			const settings = (await styleSettingPlugin.loadData()) as Record<
+				string,
+				StyleSettingValue
+			>;
+			const oldNames = generateName(this.settings.prefix, oldPath);
+			const generateKeys = (prefix: Prefix) => {
+				return {
+					bg: {
+						light: `${this.manifest.id}@@${prefix.bg}@@light`,
+						dark: `${this.manifest.id}@@${prefix.bg}@@dark`,
+					},
+					color: {
+						light: `${this.manifest.id}@@${prefix.color}@@light`,
+						dark: `${this.manifest.id}@@${prefix.color}@@dark`,
+					},
+				};
+			};
+
+			const oldKeys = generateKeys(oldNames);
+			const newKeys = generateKeys(generateName(this.settings.prefix, newPath.name));
+
+			const styleSettingsValues: Record<string, StyleSettingValue | undefined> = {
+				[newKeys.bg.light]: settings?.[oldKeys.bg.light],
+				[newKeys.bg.dark]: settings?.[oldKeys.bg.dark],
+				[newKeys.color.light]: settings?.[oldKeys.color.light],
+				[newKeys.color.dark]: settings?.[oldKeys.color.dark],
+			};
+			//if every key is undefined => no need to re-apply the theming, just return
+			if (
+				!Object.values(styleSettingsValues).some(
+					(value) => value !== undefined && value !== ""
+				)
+			)
+				return this.injectStyles();
+			this.injectStyles();
+			//@ts-ignore
+			styleSettingPlugin.settingsManager.setSettings(styleSettingsValues);
+		}
 	}
 
 	injectToRoot(file: TAbstractFile) {
@@ -117,15 +166,16 @@ export default class SimpleColoredFolder extends Plugin {
 	}
 
 	reload() {
+		//console.log("css change");
 		this.app.workspace.trigger("css-change");
-		this.app.workspace.trigger("parse-style-settings");
+		//console.log("parse style settings");
+		//this.app.workspace.trigger("parse-style-settings");
 	}
 
 	onunload() {
 		console.log(`[${this.manifest.name}] Unloaded`);
 		//remove the style
 		this.style?.detach();
-		this.reload();
 	}
 
 	async loadSettings() {
