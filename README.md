@@ -2,7 +2,7 @@
 
 Automagically add color to root folder, and customize it with Style Settings.
 
-![tree with colored folders](./docs/color_nav.png)
+![tree with colored folders](./docs/default_color.png)
 
 ## 📦 Features
 
@@ -11,6 +11,9 @@ Automagically add color to root folder, and customize it with Style Settings.
 - Custom styling options through template
 - Folder style changes update in real-time
 - Supports both light & dark themes
+
+> [!warning]
+> This plugin requires the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin to customize folder colors. You'll see a warning if Style Settings isn't installed.
 
 ## ⚙️ Usage
 
@@ -21,9 +24,6 @@ Automagically add color to root folder, and customize it with Style Settings.
 
 ![style settings](./docs/style_settings.png)
 
-## Requirements
-
-This plugin requires the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin to customize folder colors. You'll see a warning if Style Settings isn't installed.
 
 ## 🎨 Configuration
 
@@ -35,8 +35,7 @@ In the plugin settings, you can customize :
 ![settings](./docs/plugin_settings.png)
 
 > [!NOTE]
-> If you needs, the variable `--spf-color-border` was created to customize the border bottom color under the folder name.
-> If needed, you can check the [styles.css](./src/styles.css) file to see the default style and override it in your custom CSS.
+> You can see some example of css template [here](./docs/snippets.md)
 
 ## 📥 Installation
 
