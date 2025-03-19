@@ -1,1 +1,31 @@
-{}
+{
+  "common": {
+    "folderName": "FolderName"
+  },
+  "prefix": {
+    "settings": {
+      "generation": "The variable will be generated as follow:"
+    }
+  },
+  "settings": {
+    "background": "Background color",
+    "color": "Text color",
+    "customCss": {
+      "desc": "Custom CSS template to generate a style from folders. Please use the following variables:",
+      "title": "Custom CSS"
+    },
+    "prefix": {
+      "desc": "Prefix for variable generation. This will allow Style Settings to works, but you can edit them also in a CSS snippets.",
+      "folderName": "where folder name will be standardized (removing all points, space and set to lowercase).",
+      "title": "Prefix"
+    },
+    "reload": "Reload style",
+    "styleSettings": {
+      "consigne": "Please use the syntaxe from",
+      "desc": "Custom “Style settings” template to generate a style from folders. Please use the following variables:",
+      "plugin": "the plugin",
+      "title": "Custom Style Settings",
+      "without": "without the properties"
+    }
+  }
+}

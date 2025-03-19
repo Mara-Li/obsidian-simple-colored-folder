@@ -1,0 +1,31 @@
+{
+  "common": {
+    "folderName": "NomDossier"
+  },
+  "prefix": {
+    "settings": {
+      "generation": "Les variables seront générées tel que :"
+    }
+  },
+  "settings": {
+    "background": "Couleur du fond",
+    "color": "Couleur du texte",
+    "customCss": {
+      "desc": "Modèle CSS personnalisé qui sera utilisé pour générer un CSS depuis les dossiers. Merci d'utiliser les variables suivantes : ",
+      "title": "CSS personnalisé"
+    },
+    "prefix": {
+      "desc": "Préfixe pour la génération de variable. Cela permettra au plugin \"Style settings\" de fonctionner, mais vous pourrez aussi les utiliser dans un snippet css.",
+      "folderName": "où le nom du dossier sera normalisé (en supprimant tous les points, les espaces et en mettant le nom en minuscules).",
+      "title": "Préfixe"
+    },
+    "reload": "Recharger le style",
+    "styleSettings": {
+      "consigne": "Merci d'utiliser la syntaxe depuis",
+      "desc": "Modèle \"Style settings\" personnalisé pour générer un style depuis les dossiers. Merci d'utiliser les variables suivantes :",
+      "plugin": "le module",
+      "title": "Style Settings personnalisé",
+      "without": "sans les propriétés"
+    }
+  }
+}
