@@ -42,11 +42,15 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		  --spf-color-border: var(${variableNames.color});
 		}
 		
+		.tree-item-self.nav-folder-title[data-path^="${folderName}"] .collapse-icon svg.svg-icon {
+			--nav-collapse-icon-color: var(${variableNames.color});
+		}
+		
 		
 		.tree-item.nav-folder:has([data-path="${folderName}"]) {
 		  background-color: var(${variableNames.bg}) !important;
 		  border-radius: var(--FolderRadius);
-		  --nav-indentation-guide-color: var(${variableNames.color}) !important;
+		  --nav-indentation-guide-color: var(${variableNames.color});
 		}
 
 		.theme-light .nav-file-title[class*="is-active"][data-path^="${folderName}"],
