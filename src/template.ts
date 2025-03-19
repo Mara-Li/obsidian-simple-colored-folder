@@ -37,15 +37,6 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		.nav-file-title[data-path^="${folderName}"] {
 		  color: var(${variableNames.color}) !important;
 		}
-	
-		.nav-files-container.node-insert-event>div>.tree-item.nav-folder>.tree-item-self.nav-folder-title[data-path="${folderName}"] {
-		  --spf-color-border: var(${variableNames.color});
-		}
-		
-		.tree-item-self.nav-folder-title[data-path^="${folderName}"] .collapse-icon svg.svg-icon {
-			--nav-collapse-icon-color: var(${variableNames.color});
-		}
-		
 		
 		.tree-item.nav-folder:has([data-path="${folderName}"]) {
 		  background-color: var(${variableNames.bg}) !important;
