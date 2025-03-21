@@ -166,10 +166,7 @@ export default class SimpleColoredFolder extends Plugin {
 	}
 
 	reload() {
-		//console.log("css change");
 		this.app.workspace.trigger("css-change");
-		//console.log("parse style settings");
-		//this.app.workspace.trigger("parse-style-settings");
 	}
 
 	onunload() {
