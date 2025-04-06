@@ -1,3 +1,9 @@
+## [0.0.8](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.7...0.0.8) (2025-04-06)
+### Bug Fixes
+
+* ensure default values for bump and beta inputs in CI workflow ([f5fdc27](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/f5fdc2722a963d0ef47094f946ce499f5238a723))
+* warning at each obsidian start because style settings is debounced ([08d536d](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/08d536d3f6d24051aeda8521a642aab752225f20))
+
 ## [0.0.7](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.6...0.0.7) (2025-03-19)
 
 ## [0.0.6](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.5...0.0.6) (2025-03-19)
