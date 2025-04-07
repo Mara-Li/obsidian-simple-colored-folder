@@ -6,8 +6,8 @@ import { standardize } from "./utils";
 
 export function generateName(prefix: Prefix, folder: string, cssVar = ""): Prefix {
 	return {
-		bg: `${cssVar}${prefix.bg}-${standardize(folder)}`,
-		color: `${cssVar}${prefix.color}-${standardize(folder)}`,
+		bg: `${cssVar}${prefix.bg}-${standardize(folder).replace(/[^a-zA-Z0-9_-]/, "")}`,
+		color: `${cssVar}${prefix.color}-${standardize(folder).replace(/[^a-zA-Z0-9_-]/, "")}`,
 	};
 }
 
@@ -25,6 +25,7 @@ function remplaceTemplate(
 
 export function convertToCSS(folderName: string, prefix: Prefix, template: string) {
 	const variableNames = generateName(prefix, folderName, "--");
+	console.log("variableNames", variableNames);
 	return dedent(`
 	/* ---- ${folderName} ---- */
 		.nav-folder-title[data-path^="${folderName}"],
