@@ -1,3 +1,8 @@
+## [0.0.9](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.8...0.0.9) (2025-04-07)
+### Bug Fixes
+
+* allow only authorized character ([3e2b626](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/3e2b626377de9ab48b1a99fbc2b1521f672f3bd3)), closes [#1](https://github.com/Mara-Li/obsidian-simple-colored-folder/issues/1)
+
 ## [0.0.8](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.7...0.0.8) (2025-04-06)
 ### Bug Fixes
 
