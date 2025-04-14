@@ -2,9 +2,10 @@
 	"id": "simple-colored-folder",
 	"name": "Simple Colored Folder",
 	"version": "0.0.10",
-	"minAppVersion": "1.5.12",
-	"description": "Automagically add color to root folder, and customize it with Style Settings.",
+	"minAppVersion": "1.8.9",
+	"description": "Automagically add color to roots folders and customize them with Style Settings.",
 	"author": "Mara-Li",
 	"authorUrl": "https//github.com/Mara-Li",
-	"isDesktopOnly": false
+	"isDesktopOnly": false,
+	"fundingUrl": "https://ko-fi.com/mara__li"
 }
