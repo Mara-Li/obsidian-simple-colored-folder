@@ -134,7 +134,7 @@ if (isStyled) entryPoints.push("src/styles.css");
 const plugins = [];
 if (isStyled) plugins.push(moveStyles);
 if (prod) plugins.push(exportToDist);
-if (prod && opt.vault) plugins.push(exportToVaultFunc);
+if (opt.vault) plugins.push(exportToVaultFunc);
 
 /**
  * BUILD
