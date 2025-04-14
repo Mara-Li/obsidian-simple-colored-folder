@@ -1,3 +1,8 @@
+## [0.0.10](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.9...0.0.10) (2025-04-14)
+### Features
+
+* allow to use a css snippets for the plugin instead to inject in the head DOM directly ([3725efb](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/3725efb8256009bc3093349d1dd2d686eb2922fc))
+
 ## [0.0.9](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.8...0.0.9) (2025-04-07)
 ### Bug Fixes
 
