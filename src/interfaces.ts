@@ -9,6 +9,7 @@ export interface SimpleColoredFolderSettings {
 	prefix: Prefix;
 	customTemplate: string;
 	customStyleSettings: string;
+	exportToCSS: boolean;
 }
 
 export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
@@ -18,6 +19,7 @@ export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 	},
 	customTemplate: "",
 	customStyleSettings: "",
+	exportToCSS:false,
 };
 
 export type StyleSettingValue = number | string | boolean;

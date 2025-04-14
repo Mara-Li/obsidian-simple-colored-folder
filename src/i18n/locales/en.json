@@ -23,6 +23,10 @@
       "title": "Prefix"
     },
     "reload": "Reload style",
+    "snippets": {
+      "desc": "Use a local css snippet file instead of inject the styles into the DOM.",
+      "title": "CSS Snippets file"
+    },
     "styleSettings": {
       "consigne": "Please use the syntaxe from",
       "desc": "Custom “Style settings” template to generate a style from folders. Please use the following variables:",

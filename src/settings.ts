@@ -1,13 +1,19 @@
 import { type App, PluginSettingTab, sanitizeHTMLToDom, Setting } from "obsidian";
 import type SimpleColoredFolder from "./main";
 import i18next from "i18next";
+import type { ColorCompiler } from "./compiler";
+import type { SimpleColoredFolderSettings } from "./interfaces";
 
 export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 	plugin: SimpleColoredFolder;
+	settings: SimpleColoredFolderSettings;
+	compiler: ColorCompiler;
 
 	constructor(app: App, plugin: SimpleColoredFolder) {
 		super(app, plugin);
 		this.plugin = plugin;
+		this.settings = plugin.settings;
+		this.compiler = plugin.compiler;
 	}
 
 	display(): void {
@@ -26,15 +32,30 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		);
 
 		new Setting(containerEl)
+			.setName(i18next.t("settings.snippets.title"))
+			.setClass("no-border")
+			.setDesc(i18next.t("settings.snippets.desc"))
+			.addToggle((cb) =>
+				cb
+					.setValue(this.settings.exportToCSS)
+					.onChange(async (value) => {
+						this.settings.exportToCSS = value;
+						await this.plugin.saveSettings();
+						await this.compiler.injectStyles();
+					})
+
+			)
+
+		new Setting(containerEl)
 			.setName(i18next.t("common.color"))
 			.setClass("no-border")
 			.addText((text) => {
-				text.setValue(this.plugin.settings.prefix.color).onChange(async (value) => {
-					this.plugin.settings.prefix.color = value;
+				text.setValue(this.settings.prefix.color).onChange(async (value) => {
+					this.settings.prefix.color = value;
 					await this.plugin.saveSettings();
 				});
-				text.inputEl.onblur = () => {
-					this.plugin.injectStyles();
+				text.inputEl.onblur = async () => {
+					await this.compiler.injectStyles();
 				};
 			});
 
@@ -42,12 +63,12 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setClass("no-border")
 			.setName(i18next.t("common.background"))
 			.addText((text) => {
-				text.setValue(this.plugin.settings.prefix.bg).onChange(async (value) => {
-					this.plugin.settings.prefix.bg = value;
+				text.setValue(this.settings.prefix.bg).onChange(async (value) => {
+					this.settings.prefix.bg = value;
 					await this.plugin.saveSettings();
 				});
-				text.inputEl.onblur = () => {
-					this.plugin.injectStyles();
+				text.inputEl.onblur = async () => {
+					await this.compiler.injectStyles();
 				};
 			});
 
@@ -66,12 +87,12 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setClass("no-border")
 			.setNoInfo()
 			.addTextArea((text) => {
-				text.setValue(this.plugin.settings.customTemplate).onChange(async (value) => {
-					this.plugin.settings.customTemplate = value;
+				text.setValue(this.settings.customTemplate).onChange(async (value) => {
+					this.settings.customTemplate = value;
 					await this.plugin.saveSettings();
 				});
-				text.inputEl.onblur = () => {
-					this.plugin.injectStyles();
+				text.inputEl.onblur = async () => {
+					await this.compiler.injectStyles();
 				};
 			});
 		this.containerEl.createEl("hr");
@@ -89,13 +110,13 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setNoInfo()
 			.addTextArea((text) => {
 				text
-					.setValue(this.plugin.settings.customStyleSettings)
+					.setValue(this.settings.customStyleSettings)
 					.onChange(async (value) => {
-						this.plugin.settings.customStyleSettings = value;
+						this.settings.customStyleSettings = value;
 						await this.plugin.saveSettings();
 					});
-				text.inputEl.onblur = () => {
-					this.plugin.injectStyles();
+				text.inputEl.onblur = async () => {
+					await this.compiler.injectStyles();
 				};
 			});
 	}

@@ -23,6 +23,10 @@
       "title": "Préfixe"
     },
     "reload": "Recharger le style",
+    "snippets": {
+      "desc": "Utiliser un fichier d'extrait CSS à la place d'injecter le style dans le DOM.",
+      "title": "Fichier de snippet css"
+    },
     "styleSettings": {
       "consigne": "Merci d'utiliser la syntaxe depuis",
       "desc": "Modèle \"Style settings\" personnalisé pour générer un style depuis les dossiers. Merci d'utiliser les variables suivantes :",

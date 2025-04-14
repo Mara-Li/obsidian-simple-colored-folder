@@ -25,7 +25,6 @@ function remplaceTemplate(
 
 export function convertToCSS(folderName: string, prefix: Prefix, template: string) {
 	const variableNames = generateName(prefix, folderName, "--");
-	console.log("variableNames", variableNames);
 	return dedent(`
 	/* ---- ${folderName} ---- */
 		.nav-folder-title[data-path^="${folderName}"],
