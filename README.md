@@ -29,9 +29,10 @@ Automagically add color to roots folders, and customize them with Style Settings
 ## 🎨 Configuration
 
 In the plugin settings, you can customize :
-- Folder name prefixes for CSS variables (background and font color)
-- Usage of a CSS file in `snippets` folder (instead of injecting into the DOM).
-- Custom CSS template
+- Export to a css snippets (instead of inject into the DOM)
+- Default colors (when creating new folders)
+- Folder name prefix for CSS varaible
+- Custom CSS templates
 - Custom style settings template
 
 ![settings](./docs/assets/plugin_settings.png)

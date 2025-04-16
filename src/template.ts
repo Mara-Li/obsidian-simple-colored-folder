@@ -1,5 +1,5 @@
 import dedent from "dedent";
-import { DEFAULT_COLOR, type Prefix } from "./interfaces";
+import { type Colors, DEFAULT_COLOR, type Prefix } from "./interfaces";
 import "uniformize";
 import i18next from "i18next";
 import { standardize } from "./utils";
@@ -54,7 +54,8 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 export function convertStyleSettings(
 	folderName: string,
 	prefix: Prefix,
-	template: string
+	template: string,
+	defaultColor: Colors
 ) {
 	const variableNames = generateName(prefix, folderName);
 	return `
@@ -68,25 +69,33 @@ export function convertStyleSettings(
         opacity: true
         type: variable-themed-color
         title: ${i18next.t("common.background")}
-        default-light: "${DEFAULT_COLOR}"
-        default-dark: "${DEFAULT_COLOR}"
+        default-light: "${defaultColor.bg.themeLight}"
+        default-dark: "${defaultColor.bg.themeDark}"
     -
         id: ${variableNames.color}
         title: ${i18next.t("common.color")}
         type: variable-themed-color
         format: hex
-        default-light: "${DEFAULT_COLOR}"
-        default-dark: "${DEFAULT_COLOR}"
-        opacity: false
+        default-light: "${defaultColor.color.themeLight}"
+        default-dark: "${defaultColor.color.themeDark}"
+        opacity: true
     
     ${dedent(remplaceTemplate(template, folderName, variableNames.bg, variableNames.color))}
     
     -`;
 }
 
-export function themes(vn: Prefix) {
+export function themes(
+	vn: Prefix,
+	defaultColor: Colors,
+	theme: "themeLight" | "themeDark"
+) {
+	const color =
+		defaultColor.color[theme] === DEFAULT_COLOR
+			? '"var(--nav-item-color)"'
+			: `${defaultColor.color[theme]}`;
 	return dedent(`\n
-				${vn.bg}: "${DEFAULT_COLOR}";
-				${vn.color}: var(--nav-item-color);
+				${vn.bg}: ${defaultColor.bg[theme]};
+				${vn.color}: ${color};
 	`);
 }

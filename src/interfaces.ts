@@ -10,7 +10,28 @@ export interface SimpleColoredFolderSettings {
 	customTemplate: string;
 	customStyleSettings: string;
 	exportToCSS: boolean;
+	defaultColors: Colors;
 }
+
+export type ThemedColors = {
+	themeDark: string;
+	themeLight: string;
+};
+
+export type Colors = {
+	bg: ThemedColors;
+	color: ThemedColors;
+};
+
+export const DEFAULT_THEMED_COLORS = {
+	themeDark: DEFAULT_COLOR,
+	themeLight: DEFAULT_COLOR,
+};
+
+export const DEFAULT_COLORS: Colors = {
+	bg: DEFAULT_THEMED_COLORS,
+	color: DEFAULT_THEMED_COLORS,
+};
 
 export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 	prefix: {
@@ -19,7 +40,8 @@ export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 	},
 	customTemplate: "",
 	customStyleSettings: "",
-	exportToCSS:false,
+	exportToCSS: false,
+	defaultColors: DEFAULT_COLORS,
 };
 
 export type StyleSettingValue = number | string | boolean;

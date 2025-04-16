@@ -32,12 +32,7 @@ dotenv.config({ path: [".env"] });
 const program = new Command();
 program
 	.option("-p, --production", "Production build")
-	.option("-v, --vault [vault]", "Use vault path")
-	.action((v) => {
-		if (!v) return false;
-		if (typeof v === "string") return path.resolve(v.replace(/\\/g, "/"));
-		return process.env.VAULT;
-	})
+	.option("-v, --vault [vault]", "Use vault path", false)
 	.option("-o, --output-dir <path>", "Output path")
 	.option("-b, --beta", "Pre-release version")
 	.parse();
@@ -53,9 +48,20 @@ const prod = opt.production ?? false;
 const isStyled = fs.existsSync("src/styles.css");
 const pluginID = manifest.id;
 
+function getVaultPath(value) {
+	if (typeof value === "string") return value;
+	if (value === true) {
+		const vaultPath = process.env.VAULT;
+		if (!vaultPath) {
+			throw new Error("VAULT environment variable not set");
+		}
+		return vaultPath;
+	}
+	return false;
+}
 /** FOLDER PATHS **/
 const folderPlugin = opt.vault
-	? path.join(opt.vault, ".obsidian", "plugins", pluginID)
+	? path.join(getVaultPath(opt.vault), ".obsidian", "plugins", pluginID)
 	: undefined;
 
 if (folderPlugin && !fs.existsSync(folderPlugin)) {
