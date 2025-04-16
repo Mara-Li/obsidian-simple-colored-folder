@@ -28,6 +28,8 @@ Automagically add color to root folder, and customize it with Style Settings.
 ## 🎨 Configuration
 
 In the plugin settings, you can customize :
+- Export to a css snippets (instead of inject into the DOM)
+- Default colors (when creating new folders)
 - Folder name prefix for CSS varaible
 - Custom CSS templates
 - Custom style settings template
