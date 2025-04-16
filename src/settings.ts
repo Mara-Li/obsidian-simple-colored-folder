@@ -3,6 +3,7 @@ import type SimpleColoredFolder from "./main";
 import i18next from "i18next";
 import type { ColorCompiler } from "./compiler";
 import type { SimpleColoredFolderSettings } from "./interfaces";
+import { PickerSettingsComponent } from "./color-picker";
 
 export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 	plugin: SimpleColoredFolder;
@@ -21,7 +22,43 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		this.containerEl.addClass(`spf`);
 
 		containerEl.empty();
+		new Setting(containerEl)
+			.setName(i18next.t("settings.snippets.title"))
+			.setClass("no-border")
+			.setDesc(i18next.t("settings.snippets.desc"))
+			.addToggle((cb) =>
+				cb.setValue(this.settings.exportToCSS).onChange(async (value) => {
+					this.settings.exportToCSS = value;
+					await this.plugin.saveSettings();
+					await this.compiler.injectStyles();
+				})
+			);
+		this.containerEl.createEl("hr");
+		new Setting(containerEl).setName("Default color").setClass("no-border").setHeading();
 
+		new PickerSettingsComponent(
+			containerEl,
+			"Background",
+			this.settings.defaultColors.bg,
+			async (value) => {
+				this.settings.defaultColors.bg.themeLight = value.themeLight;
+				this.settings.defaultColors.bg.themeDark = value.themeDark;
+				await this.plugin.saveSettings();
+				await this.compiler.injectStyles();
+			}
+		);
+		new PickerSettingsComponent(
+			containerEl,
+			"Text color",
+			this.settings.defaultColors.color,
+			async (value) => {
+				this.settings.defaultColors.color.themeLight = value.themeLight;
+				this.settings.defaultColors.color.themeDark = value.themeDark;
+				await this.plugin.saveSettings();
+				await this.compiler.injectStyles();
+			}
+		);
+		this.containerEl.createEl("hr");
 		new Setting(containerEl).setName(i18next.t("settings.prefix.title")).setHeading();
 
 		this.containerEl.appendChild(
@@ -30,21 +67,6 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					<p dir="auto">${i18next.t("settings.warning")}</p>
 					</div></div>`)
 		);
-
-		new Setting(containerEl)
-			.setName(i18next.t("settings.snippets.title"))
-			.setClass("no-border")
-			.setDesc(i18next.t("settings.snippets.desc"))
-			.addToggle((cb) =>
-				cb
-					.setValue(this.settings.exportToCSS)
-					.onChange(async (value) => {
-						this.settings.exportToCSS = value;
-						await this.plugin.saveSettings();
-						await this.compiler.injectStyles();
-					})
-
-			)
 
 		new Setting(containerEl)
 			.setName(i18next.t("common.color"))
@@ -109,12 +131,10 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setClass("no-border")
 			.setNoInfo()
 			.addTextArea((text) => {
-				text
-					.setValue(this.settings.customStyleSettings)
-					.onChange(async (value) => {
-						this.settings.customStyleSettings = value;
-						await this.plugin.saveSettings();
-					});
+				text.setValue(this.settings.customStyleSettings).onChange(async (value) => {
+					this.settings.customStyleSettings = value;
+					await this.plugin.saveSettings();
+				});
 				text.inputEl.onblur = async () => {
 					await this.compiler.injectStyles();
 				};
