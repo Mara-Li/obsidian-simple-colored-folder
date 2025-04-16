@@ -1,3 +1,9 @@
+## [0.0.11](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.10...0.0.11) (2025-04-16)
+### Features
+
+* integrate color picker for customizable default theme colors ([cd2c383](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/cd2c3838d3ea2dbb1edb55601e8a5d02c5c9069f))
+* possibility to adjust default-colors with support for alpha (using pickr) ([5dfef06](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/5dfef06b52b2b1c07cb6cc019508b01c0cd4b078))
+
 ## [0.0.10](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.9...0.0.10) (2025-04-14)
 ### Features
 
