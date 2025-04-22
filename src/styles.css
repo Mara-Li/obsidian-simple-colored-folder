@@ -1,3 +1,4 @@
+/** ---- **/
 :root {
 	--FolderRadius: 5px;
 	--space-between: 1px;
@@ -46,8 +47,6 @@ body:not(.is-grabbing) .nav-folder-title:hover .nav-folder-collapse-indicator {
 	margin-bottom: 0;
 }
 
-/*& Set up explorer container margins */
-
 .nav-files-container {
 	margin: 0 5px;
 }
@@ -81,7 +80,8 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	margin-bottom: var(--space-between) !important;
 }
 
-/** ---- Settings ---- **/
+/** ---- **/
+/* ---- Settings ---- */
 
 .spf textarea {
 	width: 100%;
@@ -109,14 +109,14 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	--hr-thickness: 1px;
 }
 
-/* Aligne le composant avec les autres settings */
+/* Settings alignments */
 .spf .picker-settings-component .setting-item-control {
 	display: flex;
 	gap: 16px;
 	align-items: center;
 }
 
-/* Le wrapper des deux pickers */
+/* Picker wrapper */
 .spf .dual-alpha-picker-controls {
 	display: flex;
 	gap: 4px;
@@ -129,7 +129,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	position: relative;
 }
 
-/* Conteneur individuel d’un picker + bouton reset */
+/* Picker + reset button */
 .spf .alpha-picker-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -148,7 +148,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	background-color: #1e1e1e;
 }
 
-/* Boutons de reset (↺) */
+/* Reset button */
 .spf .alpha-picker-wrapper .clickable-icon {
 	font-size: 14px;
 	opacity: 0.6;

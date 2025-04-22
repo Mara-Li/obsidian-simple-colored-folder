@@ -31,8 +31,22 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					this.settings.exportToCSS = value;
 					await this.plugin.saveSettings();
 					await this.compiler.injectStyles();
+					this.display();
 				})
 			);
+		if (this.settings.exportToCSS) {
+			new Setting(containerEl)
+				.setName(i18next.t("settings.export.title"))
+				.setDesc(i18next.t("settings.export.desc"))
+				.setClass("no-border")
+				.addToggle((cb) =>
+					cb.setValue(this.settings.includeStyleInExport).onChange(async (value) => {
+						this.settings.includeStyleInExport = value;
+						await this.plugin.saveSettings();
+						await this.compiler.injectStyles();
+					})
+				);
+		}
 		this.containerEl.createEl("hr");
 		new Setting(containerEl).setName("Default color").setClass("no-border").setHeading();
 
