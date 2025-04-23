@@ -42,7 +42,6 @@ export default class SimpleColoredFolder extends Plugin {
 		}
 
 		await this.compiler.injectStyles();
-		this.app.workspace.trigger("parse-style-settings");
 		this.addSettingTab(new SimpleColoredFolderSettingTab(this.app, this));
 
 		this.app.vault.on("rename", async (file, oldPath) => {
@@ -60,7 +59,6 @@ export default class SimpleColoredFolder extends Plugin {
 		this.compiler.style?.detach();
 		this.compiler.style?.remove();
 		this.app.workspace.trigger("css-change");
-		this.app.workspace.trigger("parse-style-settings");
 	}
 	async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());

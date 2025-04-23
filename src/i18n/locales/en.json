@@ -4,18 +4,26 @@
     "color": "Text color",
     "folderName": "FolderName",
     "radius": "Folder radius",
+    "saturate": "Saturation while being dragged",
+    "saturateHover": "Saturation during hover",
     "space": "Space between folder",
     "warning": "Warning"
   },
+  "notEnabled": "Style Settings is not installed or enabled. Please, activate it before using this plugin.",
   "prefix": {
     "settings": {
       "generation": "The variable will be generated as follow:"
     }
   },
+  "reload": "It is possible that you need to reload Obsidian to make it works.",
   "settings": {
     "customCss": {
       "desc": "Custom CSS template to generate a style from folders. Please use the following variables:",
       "title": "Custom CSS"
+    },
+    "export": {
+      "desc": "Add the plugin style into the exported style snippets.",
+      "title": "Export plugin style"
     },
     "prefix": {
       "desc": "Prefix for variable generation. This will allow Style Settings to works, but you can edit them also in a CSS snippets.",

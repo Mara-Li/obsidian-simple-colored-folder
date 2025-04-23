@@ -4,18 +4,26 @@
     "color": "Couleur du texte",
     "folderName": "NomDossier",
     "radius": "Radius du dossier",
+    "saturate": "Saturation durant le déplacement",
+    "saturateHover": "Saturation durant la sélection",
     "space": "Espace entre les dossiers",
     "warning": "Attention"
   },
+  "notEnabled": "Style Settings n'est pas installé ou activé. Merci de l'activer avant d'utiliser ce plugin.",
   "prefix": {
     "settings": {
       "generation": "Les variables seront générées tel que :"
     }
   },
+  "reload": "Il est possible que vous ayez besoin de recharger Obsidian pour que cela fonctionne.",
   "settings": {
     "customCss": {
       "desc": "Modèle CSS personnalisé qui sera utilisé pour générer un CSS depuis les dossiers. Merci d'utiliser les variables suivantes : ",
       "title": "CSS personnalisé"
+    },
+    "export": {
+      "desc": "Ajouter les styles du plugin dans le fichier exporté.",
+      "title": "Exporter le style du plugin"
     },
     "prefix": {
       "desc": "Préfixe pour la génération de variable. Cela permettra au plugin \"Style settings\" de fonctionner, mais vous pourrez aussi les utiliser dans un snippet css.",

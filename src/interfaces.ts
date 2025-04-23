@@ -11,6 +11,11 @@ export interface SimpleColoredFolderSettings {
 	customStyleSettings: string;
 	exportToCSS: boolean;
 	defaultColors: Colors;
+	/**
+	 * Allow to includes some other style in the export to CSS file
+	 * See the first part of the style.css file for more information.
+	 */
+	includeStyleInExport: boolean;
 }
 
 export type ThemedColors = {
@@ -42,6 +47,9 @@ export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 	customStyleSettings: "",
 	exportToCSS: false,
 	defaultColors: DEFAULT_COLORS,
+	includeStyleInExport: false,
 };
 
 export type StyleSettingValue = number | string | boolean;
+
+export const STYLE_SPLIT = "/** ---- **/";

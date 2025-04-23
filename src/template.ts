@@ -34,7 +34,7 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		
 		.tree-item.nav-folder:has([data-path="${folderName}"]) {
 		  background-color: var(${variableNames.bg}) !important;
-		  border-radius: var(--FolderRadius);
+		  border-radius: var(--spf-FolderRadius);
 		}
 
 		.nav-file-title[class*="is-active"][data-path^="${folderName}"],
@@ -43,7 +43,7 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		.nav-folder-title[class*="is-active"][data-path^="${folderName}"] {
 		  color: var(${variableNames.color}) !important;
 		  background-color: var(${variableNames.bg}) !important;
-		  filter: saturate(150%);
+		  filter: saturate(var(--spf-saturate-hover));
 		}
 		
 		${dedent(remplaceTemplate(template, folderName, variableNames.bg, variableNames.color))}

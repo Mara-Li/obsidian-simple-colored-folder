@@ -1,6 +1,9 @@
+/** ---- **/
 :root {
-	--FolderRadius: 5px;
-	--space-between: 1px;
+	--spf-FolderRadius: 5px;
+	--spf-space-between: 1px;
+	--spf-saturate-dragging: 500%;
+	--spaf-saturate-hover: 150%;
 }
 
 .nav-file-title,
@@ -29,59 +32,49 @@ body:not(.is-grabbing) .nav-folder-title:hover .nav-folder-collapse-indicator {
 .nav-folder-title.is-being-dragged-over {
 	background-color: transparent !important;
 	color: currentColor !important;
-	filter: saturate(500%) !important;
+	filter: saturate(var(--spf-saturate-dragging)) !important;
 }
 
-.nav-files-container.node-insert-event
-	> div
-	> .tree-item.nav-folder
-	> .tree-item-self.nav-folder-title {
+.nav-files-container.node-insert-event>div>.tree-item.nav-folder>.tree-item-self.nav-folder-title {
 	margin-top: 5px !important;
 }
 
-.nav-files-container.node-insert-event
-	> div
-	> .tree-item.nav-folder
-	> .tree-item-self.nav-folder-title {
+.nav-files-container.node-insert-event>div>.tree-item.nav-folder>.tree-item-self.nav-folder-title {
 	margin-bottom: 0;
 }
-
-/*& Set up explorer container margins */
 
 .nav-files-container {
 	margin: 0 5px;
 }
 
-.nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-title {
+.nav-folder.mod-root>.nav-folder-children>.nav-folder>.nav-folder-title {
 	padding-left: 5px;
 	margin-top: 7px;
 	/* space between top level sections */
-	border-radius: var(--FolderRadius) var(--FolderRadius) 0 0;
+	border-radius: var(--spf-FolderRadius) var(--spf-FolderRadius) 0 0;
 }
 
-.nav-folder.mod-root
-	> .nav-folder-children
-	> .nav-folder.is-collapsed
-	> .nav-folder-title {
-	border-radius: var(--FolderRadius);
+.nav-folder.mod-root>.nav-folder-children>.nav-folder.is-collapsed>.nav-folder-title {
+	border-radius: var(--spf-FolderRadius);
 }
 
-.nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-children {
+.nav-folder.mod-root>.nav-folder-children>.nav-folder>.nav-folder-children {
 	padding-left: 0;
-	border-radius: 0 0 var(--FolderRadius) var(--FolderRadius);
+	border-radius: 0 0 var(--spf-FolderRadius) var(--spf-FolderRadius);
 }
 
 .nav-file-title[class*="is-active"],
 .nav-file-title:hover,
 body:not(.is-grabbing) .nav-folder-title:hover {
-	border-radius: var(--FolderRadius);
+	border-radius: var(--spf-FolderRadius);
 }
 
-.nav-files-container > div > .tree-item.nav-folder:not(.mod-root) {
-	margin-bottom: var(--space-between) !important;
+.nav-files-container>div>.tree-item.nav-folder:not(.mod-root) {
+	margin-bottom: var(--spf-space-between) !important;
 }
 
-/** ---- Settings ---- **/
+/** ---- **/
+/* ---- Settings ---- */
 
 .spf textarea {
 	width: 100%;
@@ -109,14 +102,14 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	--hr-thickness: 1px;
 }
 
-/* Aligne le composant avec les autres settings */
+/* Settings alignments */
 .spf .picker-settings-component .setting-item-control {
 	display: flex;
 	gap: 16px;
 	align-items: center;
 }
 
-/* Le wrapper des deux pickers */
+/* Picker wrapper */
 .spf .dual-alpha-picker-controls {
 	display: flex;
 	gap: 4px;
@@ -129,7 +122,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	position: relative;
 }
 
-/* Conteneur individuel d’un picker + bouton reset */
+/* Picker + reset button */
 .spf .alpha-picker-wrapper {
 	display: flex;
 	flex-direction: column;
@@ -148,7 +141,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	background-color: #1e1e1e;
 }
 
-/* Boutons de reset (↺) */
+/* Reset button */
 .spf .alpha-picker-wrapper .clickable-icon {
 	font-size: 14px;
 	opacity: 0.6;

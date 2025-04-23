@@ -1,9 +1,10 @@
-import { type App, PluginSettingTab, sanitizeHTMLToDom, Setting } from "obsidian";
+import { type App, MarkdownRenderer, PluginSettingTab, sanitizeHTMLToDom, Setting } from "obsidian";
 import type SimpleColoredFolder from "./main";
 import i18next from "i18next";
 import type { ColorCompiler } from "./compiler";
 import type { SimpleColoredFolderSettings } from "./interfaces";
 import { PickerSettingsComponent } from "./color-picker";
+import dedent from "dedent";
 
 export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 	plugin: SimpleColoredFolder;
@@ -17,8 +18,19 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		this.compiler = plugin.compiler;
 	}
 
-	display(): void {
+	async display() {
 		const { containerEl } = this;
+
+		containerEl.empty();
+		if (!this.app.plugins.enabledPlugins.has("obsidian-style-settings")) {
+			await MarkdownRenderer.render(this.app, dedent`> [!warning]
+				> ${i18next.t("notEnabled")}  
+				>
+				> ${i18next.t("reload")}
+				`, this.containerEl, "", this.plugin);
+			return;
+		}
+
 		this.containerEl.addClass(`spf`);
 
 		containerEl.empty();
@@ -31,8 +43,22 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					this.settings.exportToCSS = value;
 					await this.plugin.saveSettings();
 					await this.compiler.injectStyles();
+					this.display();
 				})
 			);
+		if (this.settings.exportToCSS) {
+			new Setting(containerEl)
+				.setName(i18next.t("settings.export.title"))
+				.setDesc(i18next.t("settings.export.desc"))
+				.setClass("no-border")
+				.addToggle((cb) =>
+					cb.setValue(this.settings.includeStyleInExport).onChange(async (value) => {
+						this.settings.includeStyleInExport = value;
+						await this.plugin.saveSettings();
+						await this.compiler.injectStyles();
+					})
+				);
+		}
 		this.containerEl.createEl("hr");
 		new Setting(containerEl).setName("Default color").setClass("no-border").setHeading();
 
@@ -61,12 +87,12 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		this.containerEl.createEl("hr");
 		new Setting(containerEl).setName(i18next.t("settings.prefix.title")).setHeading();
 
-		this.containerEl.appendChild(
-			sanitizeHTMLToDom(`${i18next.t("settings.prefix.desc")}<br>${i18next.t("prefix.settings.generation")} <code>prefix.[${i18next.t("common.folderName")}]</code> ${i18next.t("settings.prefix.folderName")}
-			<div data-callout-metadata="" data-callout-fold="" data-callout="warning" class="callout"><div class="callout-title" dir="auto"><div class="callout-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg></div><div class="callout-title-inner">${i18next.t("common.warning")}</div></div><div class="callout-content">
-					<p dir="auto">${i18next.t("settings.warning")}</p>
-					</div></div>`)
-		);
+		await MarkdownRenderer.render(this.app, dedent`
+			${i18next.t("settings.prefix.desc")}
+			${i18next.t("prefix.settings.generation")} « \`prefix.${i18next.t("common.folderName")}\` » ${i18next.t("settings.prefix.folderName")}
+			> [!warning] ${i18next.t("common.warning")}
+			> ${i18next.t("settings.warning")}
+			`, this.containerEl, "", this.plugin);
 
 		new Setting(containerEl)
 			.setName(i18next.t("common.color"))
