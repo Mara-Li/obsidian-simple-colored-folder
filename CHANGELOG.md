@@ -1,3 +1,8 @@
+## [0.0.12](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.11...0.0.12) (2025-04-23)
+### Features
+
+* add more styles in the exported file in snippets ([d4ce4ee](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/d4ce4ee36189442228d2b1d8234fcba0dce08280))
+
 ## [0.0.11](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.10...0.0.11) (2025-04-16)
 ### Features
 
