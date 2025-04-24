@@ -33,13 +33,13 @@
     "reload": "Reload style",
     "snippets": {
       "desc": "Use a local css snippet file instead of inject the styles into the DOM.",
-      "title": "CSS Snippets file"
+      "title": "CSS snippets file"
     },
     "styleSettings": {
-      "consigne": "Please use the syntaxe from",
+      "consigne": "Please use the syntax of",
       "desc": "Custom “Style settings” template to generate a style from folders. Please use the following variables:",
       "plugin": "the plugin",
-      "title": "Custom Style Settings",
+      "title": "Custom style settings",
       "without": "without the properties"
     },
     "warning": "This will reset your Style Settings! "

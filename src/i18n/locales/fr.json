@@ -33,13 +33,13 @@
     "reload": "Recharger le style",
     "snippets": {
       "desc": "Utiliser un fichier d'extrait CSS à la place d'injecter le style dans le DOM.",
-      "title": "Fichier de snippet css"
+      "title": "Fichier de snippets CSS"
     },
     "styleSettings": {
-      "consigne": "Merci d'utiliser la syntaxe depuis",
+      "consigne": "Merci d'utiliser la syntaxe de",
       "desc": "Modèle \"Style settings\" personnalisé pour générer un style depuis les dossiers. Merci d'utiliser les variables suivantes :",
       "plugin": "le module",
-      "title": "Style Settings personnalisé",
+      "title": "Style settings personnalisé",
       "without": "sans les propriétés"
     },
     "warning": "Cela aura pour conséquence de réinitialiser vos paramètres Style Settings ! "
