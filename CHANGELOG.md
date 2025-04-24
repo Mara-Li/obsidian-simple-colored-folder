@@ -1,3 +1,5 @@
+## [0.0.13](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.12...0.0.13) (2025-04-24)
+
 ## [0.0.12](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.11...0.0.12) (2025-04-23)
 ### Features
 
