@@ -1,18 +1,19 @@
 export function formatCss(css: string, minify?: boolean): string {
 	const styleSheet = new CSSStyleSheet();
 	styleSheet.replaceSync(css);
-	const formattedCss = [...styleSheet.cssRules].map((rule) => {
-		if (!minify) {
-			return rule.cssText
-				.replaceAll("{", "{\n   ")
-				.replaceAll(";", ";\n   ")
-				.replace(/\n\s*}/g, "\n}")
-				.replace(/\s*,/g, ",\n")
-				.replace(/ \./g, ".")
-		}
-		return rule.cssText
-	}).join(minify ? "" : "\n");
-	return formattedCss;
+	return [...styleSheet.cssRules]
+		.map((rule) => {
+			if (!minify) {
+				return rule.cssText
+					.replaceAll("{", "{\n   ")
+					.replaceAll(";", ";\n   ")
+					.replace(/\n\s*}/g, "\n}")
+					.replace(/\s*,/g, ",\n")
+					.replace(/ \./g, ".");
+			}
+			return rule.cssText;
+		})
+		.join(minify ? "" : "\n");
 }
 
 export function standardize(str: string) {
