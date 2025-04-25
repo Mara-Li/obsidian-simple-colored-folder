@@ -1,6 +1,6 @@
 {
   "name": "simple-colored-folder",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Automagically add color to root folder, and customize it with Style Settings.",
   "main": "main.js",
   "private": true,

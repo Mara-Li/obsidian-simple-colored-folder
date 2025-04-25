@@ -1,3 +1,8 @@
+## [0.0.14](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.13...0.0.14) (2025-04-25)
+### Bug Fixes
+
+* duplicate entry in style settings panel ([79d9b50](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/79d9b500c187f944fa96684458d632a4928f51a2)), closes [#2](https://github.com/Mara-Li/obsidian-simple-colored-folder/issues/2)
+
 ## [0.0.13](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.12...0.0.13) (2025-04-24)
 
 ## [0.0.12](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.11...0.0.12) (2025-04-23)
