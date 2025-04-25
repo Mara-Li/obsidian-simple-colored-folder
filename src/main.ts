@@ -1,11 +1,8 @@
 import i18next from "i18next";
-import { Plugin, Notice, TFolder, type TAbstractFile, sanitizeHTMLToDom, normalizePath } from "obsidian";
+import { Plugin, Notice, sanitizeHTMLToDom, normalizePath } from "obsidian";
 import { resources, translationLanguage } from "./i18n";
 
-import {
-	DEFAULT_SETTINGS,
-	type SimpleColoredFolderSettings,
-} from "./interfaces";
+import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
 import dedent from "dedent";
 import { SimpleColoredFolderSettingTab } from "./settings";
 import { ColorCompiler } from "./compiler";
@@ -40,16 +37,17 @@ export default class SimpleColoredFolder extends Plugin {
 				)
 			);
 		}
-
-		await this.compiler.injectStyles();
 		this.addSettingTab(new SimpleColoredFolderSettingTab(this.app, this));
 
 		this.app.vault.on("rename", async (file, oldPath) => {
 			await this.compiler.renameCss(file, oldPath);
 		});
 
-		this.app.vault.on("create", async (file) => {
-			await this.compiler.injectToRoot(file);
+		this.app.workspace.onLayoutReady(async () => {
+			await this.compiler.injectStyles(true);
+			this.app.vault.on("create", async (file) => {
+				await this.compiler.injectToRoot(file);
+			});
 		});
 	}
 
