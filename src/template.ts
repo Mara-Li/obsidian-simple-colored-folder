@@ -62,13 +62,13 @@ export function convertStyleSettings(
         type: heading
         level: 3
         collapsed: true
-        title: ${folderName}
+        title: "${folderName}"
     -
         id: ${variableNames.bg}
         format: hex
         opacity: true
         type: variable-themed-color
-        title: ${i18next.t("common.background")}
+        title: "${i18next.t("common.background")}"
         default-light: "${defaultColor.bg.themeLight}"
         default-dark: "${defaultColor.bg.themeDark}"
     -
