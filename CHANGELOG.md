@@ -1,3 +1,8 @@
+## [0.0.15](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.14...0.0.15) (2025-04-30)
+### Bug Fixes
+
+* use private `_loaded` to prevents false positive warning about not loaded St.Settings ([ab861b6](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/ab861b615f0edd9df72d2b8b85be2173df77b628))
+
 ## [0.0.14](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.13...0.0.14) (2025-04-25)
 ### Bug Fixes
 
