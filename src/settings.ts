@@ -61,11 +61,11 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 				);
 		}
 		this.containerEl.createEl("hr");
-		new Setting(containerEl).setName("Default color").setClass("no-border").setHeading();
+		new Setting(containerEl).setName(i18next.t("settings.defaultColor")).setClass("no-border").setHeading();
 
 		new PickerSettingsComponent(
 			containerEl,
-			"Background",
+			i18next.t("common.background"),
 			this.settings.defaultColors.bg,
 			async (value) => {
 				this.settings.defaultColors.bg.themeLight = value.themeLight;
@@ -76,7 +76,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		);
 		new PickerSettingsComponent(
 			containerEl,
-			"Text color",
+			i18next.t("common.color"),
 			this.settings.defaultColors.color,
 			async (value) => {
 				this.settings.defaultColors.color.themeLight = value.themeLight;

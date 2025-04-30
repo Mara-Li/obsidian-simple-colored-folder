@@ -21,6 +21,7 @@
       "desc": "Modèle CSS personnalisé qui sera utilisé pour générer un CSS depuis les dossiers. Merci d'utiliser les variables suivantes : ",
       "title": "CSS personnalisé"
     },
+    "defaultColor": "Couleurs par défaut",
     "export": {
       "desc": "Ajouter les styles du plugin dans le fichier exporté.",
       "title": "Exporter le style du plugin"
