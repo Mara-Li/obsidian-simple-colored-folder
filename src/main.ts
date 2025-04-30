@@ -29,8 +29,8 @@ export default class SimpleColoredFolder extends Plugin {
 		);
 		this.compiler = new ColorCompiler(this);
 		this.style = this.compiler.style;
-
-		if (!this.app.plugins.enabledPlugins.has("obsidian-style-settings")) {
+		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
+		if (!styleSettings?._loaded) {
 			new Notice(
 				sanitizeHTMLToDom(
 					dedent`<span class="spf-warning">${i18next.t("warning")}</span>`

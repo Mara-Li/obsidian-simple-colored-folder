@@ -22,7 +22,8 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 
 		containerEl.empty();
-		if (!this.app.plugins.enabledPlugins.has("obsidian-style-settings")) {
+		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
+		if (!styleSettings?._loaded) {
 			await MarkdownRenderer.render(this.app, dedent`> [!warning]
 				> ${i18next.t("notEnabled")}  
 				>
