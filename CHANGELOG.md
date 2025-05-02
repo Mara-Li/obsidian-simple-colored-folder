@@ -1,3 +1,8 @@
+## [0.0.16](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.15...0.0.16) (2025-05-02)
+### Bug Fixes
+
+* prevent incorrectly notice for StS; wait for layout to be ready ([34ed895](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/34ed8956df73f7256287e37558e562524b507a6a))
+
 ## [0.0.15](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.14...0.0.15) (2025-04-30)
 ### Bug Fixes
 
