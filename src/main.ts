@@ -29,14 +29,7 @@ export default class SimpleColoredFolder extends Plugin {
 		);
 		this.compiler = new ColorCompiler(this);
 		this.style = this.compiler.style;
-		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
-		if (!styleSettings?._loaded) {
-			new Notice(
-				sanitizeHTMLToDom(
-					dedent`<span class="spf-warning">${i18next.t("warning")}</span>`
-				)
-			);
-		}
+
 		this.addSettingTab(new SimpleColoredFolderSettingTab(this.app, this));
 
 		this.app.vault.on("rename", async (file, oldPath) => {
@@ -44,6 +37,14 @@ export default class SimpleColoredFolder extends Plugin {
 		});
 
 		this.app.workspace.onLayoutReady(async () => {
+			const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
+			if (!styleSettings?._loaded) {
+				new Notice(
+					sanitizeHTMLToDom(
+						dedent`<span class="spf-warning">${i18next.t("warning")}</span>`
+					)
+				);
+			}
 			await this.compiler.injectStyles(true);
 			this.app.vault.on("create", async (file) => {
 				await this.compiler.injectToRoot(file);
