@@ -1,3 +1,9 @@
+## [1.0.0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.16...1.0.0) (2025-05-15)
+### Bug Fixes
+
+* moved folder not removed from SS ([2659873](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/2659873be8b2353083bbfed7dd3863a750222219))
+* safest register "rename" even using the registerEvent of Obsidian ([a35d31c](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/a35d31c6704ca30ece75a5045018ece45cf2e73d))
+
 ## [0.0.16](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.15...0.0.16) (2025-05-02)
 ### Bug Fixes
 
