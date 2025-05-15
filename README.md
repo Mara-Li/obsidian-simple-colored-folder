@@ -42,7 +42,7 @@ In the plugin settings, you can customize :
 
 ## 📥 Installation
 
-- [ ] From Obsidian's community plugins
+- [x] From Obsidian's community plugins
 - [x] Using BRAT with `https://github.com/Mara-Li/obsidian-simple-colored-folder`
 - [x] From the release page: 
     - Download the latest release
