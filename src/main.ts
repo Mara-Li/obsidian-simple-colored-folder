@@ -31,10 +31,11 @@ export default class SimpleColoredFolder extends Plugin {
 		this.style = this.compiler.style;
 
 		this.addSettingTab(new SimpleColoredFolderSettingTab(this.app, this));
-
-		this.app.vault.on("rename", async (file, oldPath) => {
-			await this.compiler.renameCss(file, oldPath);
-		});
+		this.registerEvent(
+			this.app.vault.on("rename", async (file, oldPath) => {
+				await this.compiler.renameCss(file, oldPath);
+			})
+		);
 
 		this.app.workspace.onLayoutReady(async () => {
 			const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
