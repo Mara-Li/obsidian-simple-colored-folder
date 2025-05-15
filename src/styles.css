@@ -35,11 +35,17 @@ body:not(.is-grabbing) .nav-folder-title:hover .nav-folder-collapse-indicator {
 	filter: saturate(var(--spf-saturate-dragging)) !important;
 }
 
-.nav-files-container.node-insert-event>div>.tree-item.nav-folder>.tree-item-self.nav-folder-title {
+.nav-files-container.node-insert-event
+	> div
+	> .tree-item.nav-folder
+	> .tree-item-self.nav-folder-title {
 	margin-top: 5px !important;
 }
 
-.nav-files-container.node-insert-event>div>.tree-item.nav-folder>.tree-item-self.nav-folder-title {
+.nav-files-container.node-insert-event
+	> div
+	> .tree-item.nav-folder
+	> .tree-item-self.nav-folder-title {
 	margin-bottom: 0;
 }
 
@@ -47,18 +53,21 @@ body:not(.is-grabbing) .nav-folder-title:hover .nav-folder-collapse-indicator {
 	margin: 0 5px;
 }
 
-.nav-folder.mod-root>.nav-folder-children>.nav-folder>.nav-folder-title {
+.nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-title {
 	padding-left: 5px;
 	margin-top: 7px;
 	/* space between top level sections */
 	border-radius: var(--spf-FolderRadius) var(--spf-FolderRadius) 0 0;
 }
 
-.nav-folder.mod-root>.nav-folder-children>.nav-folder.is-collapsed>.nav-folder-title {
+.nav-folder.mod-root
+	> .nav-folder-children
+	> .nav-folder.is-collapsed
+	> .nav-folder-title {
 	border-radius: var(--spf-FolderRadius);
 }
 
-.nav-folder.mod-root>.nav-folder-children>.nav-folder>.nav-folder-children {
+.nav-folder.mod-root > .nav-folder-children > .nav-folder > .nav-folder-children {
 	padding-left: 0;
 	border-radius: 0 0 var(--spf-FolderRadius) var(--spf-FolderRadius);
 }
@@ -69,7 +78,7 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 	border-radius: var(--spf-FolderRadius);
 }
 
-.nav-files-container>div>.tree-item.nav-folder:not(.mod-root) {
+.nav-files-container > div > .tree-item.nav-folder:not(.mod-root) {
 	margin-bottom: var(--spf-space-between) !important;
 }
 

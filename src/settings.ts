@@ -1,4 +1,10 @@
-import { type App, MarkdownRenderer, PluginSettingTab, sanitizeHTMLToDom, Setting } from "obsidian";
+import {
+	type App,
+	MarkdownRenderer,
+	PluginSettingTab,
+	sanitizeHTMLToDom,
+	Setting,
+} from "obsidian";
 import type SimpleColoredFolder from "./main";
 import i18next from "i18next";
 import type { ColorCompiler } from "./compiler";
@@ -24,11 +30,17 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		containerEl.empty();
 		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
 		if (!styleSettings?._loaded) {
-			await MarkdownRenderer.render(this.app, dedent`> [!warning]
+			await MarkdownRenderer.render(
+				this.app,
+				dedent`> [!warning]
 				> ${i18next.t("notEnabled")}  
 				>
 				> ${i18next.t("reload")}
-				`, this.containerEl, "", this.plugin);
+				`,
+				this.containerEl,
+				"",
+				this.plugin
+			);
 			return;
 		}
 
@@ -61,7 +73,10 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 				);
 		}
 		this.containerEl.createEl("hr");
-		new Setting(containerEl).setName(i18next.t("settings.defaultColor")).setClass("no-border").setHeading();
+		new Setting(containerEl)
+			.setName(i18next.t("settings.defaultColor"))
+			.setClass("no-border")
+			.setHeading();
 
 		new PickerSettingsComponent(
 			containerEl,
@@ -88,12 +103,18 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		this.containerEl.createEl("hr");
 		new Setting(containerEl).setName(i18next.t("settings.prefix.title")).setHeading();
 
-		await MarkdownRenderer.render(this.app, dedent`
+		await MarkdownRenderer.render(
+			this.app,
+			dedent`
 			${i18next.t("settings.prefix.desc")}
 			${i18next.t("prefix.settings.generation")} « \`prefix.${i18next.t("common.folderName")}\` » ${i18next.t("settings.prefix.folderName")}
 			> [!warning] ${i18next.t("common.warning")}
 			> ${i18next.t("settings.warning")}
-			`, this.containerEl, "", this.plugin);
+			`,
+			this.containerEl,
+			"",
+			this.plugin
+		);
 
 		new Setting(containerEl)
 			.setName(i18next.t("common.color"))
