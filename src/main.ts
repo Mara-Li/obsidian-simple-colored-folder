@@ -37,6 +37,12 @@ export default class SimpleColoredFolder extends Plugin {
 			})
 		);
 
+		this.registerEvent(
+			this.app.vault.on("delete", async (file) => {
+				await this.compiler.injectStyles();
+			})
+		);
+
 		this.app.workspace.onLayoutReady(async () => {
 			const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
 			if (!styleSettings?._loaded) {
