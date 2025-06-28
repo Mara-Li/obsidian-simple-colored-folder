@@ -1,3 +1,8 @@
+## [1.1.0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.0.0...1.1.0) (2025-06-28)
+### Features
+
+* inject the data-path into `.tree-item.nav-folder` to avoid using `:has` selector. ([34b57eb](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/34b57eb1738a9b739eb42b1e59236c4b193e9364))
+
 ## [1.0.0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/0.0.16...1.0.0) (2025-05-15)
 ### Bug Fixes
 
