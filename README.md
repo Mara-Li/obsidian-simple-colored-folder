@@ -29,11 +29,10 @@ Automagically add color to roots folders, and customize them with Style Settings
 ## 🎨 Configuration
 
 In the plugin settings, you can customize :
-- Export to a css snippets (instead of inject into the DOM)
+- Export to a css snippets (instead of inject into the DOM)[^1]
 - Default colors (when creating new folders)
-- Folder name prefix for CSS varaible
-- Custom CSS templates
-- Custom style settings template
+- Folder name prefix for CSS variable
+- Custom CSS and Style Settings templates
 
 ![settings](./docs/assets/plugin_settings.png)
 
@@ -66,3 +65,4 @@ To add a translation:
     - Add `import * as <lang> from "./locales/<lang>.json";`
     - Edit the `ressource` part with adding : `<lang> : {translation: <lang>}`
 
+[^1]: Some styles can be broken while disabling the plugin, as it injects the folder path into `tree-item.nav-folder` to improve performance, instead to use `:has`.

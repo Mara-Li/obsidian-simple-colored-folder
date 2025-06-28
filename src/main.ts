@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { Plugin, Notice, sanitizeHTMLToDom, normalizePath } from "obsidian";
+import { Plugin, Notice, sanitizeHTMLToDom, normalizePath, TFolder } from "obsidian";
 import { resources, translationLanguage } from "./i18n";
 
 import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
@@ -34,11 +34,13 @@ export default class SimpleColoredFolder extends Plugin {
 		this.registerEvent(
 			this.app.vault.on("rename", async (file, oldPath) => {
 				await this.compiler.renameCss(file, oldPath);
+				if (file instanceof TFolder && file.parent === this.app.vault.getRoot())
+					this.compiler.injectDataPathFromFolder(file);
 			})
 		);
 
 		this.registerEvent(
-			this.app.vault.on("delete", async (file) => {
+			this.app.vault.on("delete", async () => {
 				await this.compiler.injectStyles();
 			})
 		);
@@ -52,9 +54,14 @@ export default class SimpleColoredFolder extends Plugin {
 					)
 				);
 			}
-			await this.compiler.injectStyles(true);
+			const folders = this.compiler.getFolder();
+			this.compiler.injectDataPath(folders);
+			await this.compiler.injectStyles(true, folders);
 			this.app.vault.on("create", async (file) => {
 				await this.compiler.injectToRoot(file);
+				if (file instanceof TFolder && file.parent === this.app.vault.getRoot()) {
+					await this.compiler.injectDataPathFromFolder(file);
+				}
 			});
 		});
 	}

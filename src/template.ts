@@ -32,7 +32,7 @@ export function convertToCSS(folderName: string, prefix: Prefix, template: strin
 		  color: var(${variableNames.color}) !important;
 		}
 		
-		.tree-item.nav-folder:has([data-path="${folderName}"]) {
+		.tree-item.nav-folder[data-path="${folderName}"] {
 		  background-color: var(${variableNames.bg}) !important;
 		  border-radius: var(--spf-FolderRadius);
 		}

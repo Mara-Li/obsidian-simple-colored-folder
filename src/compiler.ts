@@ -16,6 +16,7 @@ import { convertStyleSettings, convertToCSS, generateName, themes } from "./temp
 import { formatCss, removeExtraNewLine } from "./utils";
 import dedent from "dedent";
 import i18next from "i18next";
+import type { DeferredView, FileExplorerView, MaybeDeferredView } from "obsidian-typings";
 
 export class ColorCompiler {
 	plugin: SimpleColoredFolder;
@@ -135,12 +136,50 @@ export class ColorCompiler {
 		return "";
 	}
 
-	async injectStyles(reload = true) {
-		const folders = this.app.vault
+	getFolder() {
+		return this.app.vault
 			.getAllFolders()
 			.filter(
 				(folder: TFolder) => folder.parent && folder.parent === this.app.vault.getRoot()
 			);
+	}
+
+	private getFileExplorerView() {
+		const navigation = this.app.workspace.getLeavesOfType("file-explorer");
+		if (navigation.length === 0) return null;
+		return navigation[0].view;
+	}
+
+	injectDataPathFromFolder(folder: TFolder, fileExplorer = this.getFileExplorerView()) {
+		const navigation = this.app.workspace.getLeavesOfType("file-explorer");
+		if (!navigation.length) return;
+		if (!fileExplorer) return;
+		const treeItems = fileExplorer.containerEl.querySelectorAll(
+			`.tree-item.nav-folder > .nav-folder-title[data-path="${folder.path}"]`
+		);
+		if (treeItems.length === 0) return;
+		treeItems.forEach((item) => {
+			const treeItem = item.closest(".tree-item.nav-folder");
+			if (treeItem) treeItem.setAttribute("data-path", folder.path);
+
+		});
+	}
+
+
+	/**
+	 * Inject the data-path into the .tree-item.nav-folder
+	 */
+	injectDataPath(folders: TFolder[] = this.getFolder()) {
+		const navigation = this.app.workspace.getLeavesOfType("file-explorer");
+		if (!navigation.length) return;
+		const fileExplorer = navigation[0].view;
+		for (const folder of folders) {
+			this.injectDataPathFromFolder(folder, fileExplorer);
+		}
+	}
+
+	async injectStyles(reload = true, folders?: TFolder[]) {
+		if (!folders) folders = this.getFolder();
 		this.style?.detach();
 		const exportToCSS = this.settings.exportToCSS;
 		const style = this.createStyles(folders, !exportToCSS);
