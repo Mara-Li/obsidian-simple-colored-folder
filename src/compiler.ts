@@ -93,15 +93,25 @@ export class ColorCompiler {
 		stylesSettings = `${stylesSettings.replace(/-+$/, "").trimEnd()}\n*/`;
 		return `\n${removeExtraNewLine(stylesSettings)}\n${formatCss(darkTheme, minify)}\n${formatCss(lightTheme, minify)}\n${formatCss(css, minify)}`;
 	}
-
 	async injectToBody(content: string) {
-		if (await this.app.vault.adapter.exists(this.snippetPath))
+		if (await this.app.vault.adapter.exists(this.snippetPath)) {
 			this.app.customCss.setCssEnabledStatus("generated.colored-folder", false);
-		this.style = document.createElement("style");
-		this.style.id = "simple-colored-folder";
-		this.style.setAttribute("type", "text/css");
+		}
+
+		const domStyle = document.head.querySelector<HTMLStyleElement>(
+			"#simple-colored-folder"
+		);
+
+		this.style ??= domStyle;
+
+		if (!this.style) {
+			this.style = document.createElement("style");
+			this.style.id = "simple-colored-folder";
+			this.style.setAttribute("type", "text/css");
+			document.head.appendChild(this.style);
+		}
+
 		this.style.textContent = content;
-		document.head.appendChild(this.style);
 	}
 
 	async injectToSnippets(content: string) {

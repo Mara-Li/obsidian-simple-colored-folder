@@ -1,11 +1,10 @@
-import i18next from "i18next";
-import { Plugin, Notice, sanitizeHTMLToDom, normalizePath, TFolder } from "obsidian";
-import { resources, translationLanguage } from "./i18n";
-
-import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
 import dedent from "dedent";
-import { SimpleColoredFolderSettingTab } from "./settings";
+import i18next from "i18next";
+import { Notice, normalizePath, Plugin, sanitizeHTMLToDom, TFolder } from "obsidian";
 import { ColorCompiler } from "./compiler";
+import { resources, translationLanguage } from "./i18n";
+import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
+import { SimpleColoredFolderSettingTab } from "./settings";
 
 export default class SimpleColoredFolder extends Plugin {
 	settings!: SimpleColoredFolderSettings;
@@ -35,7 +34,7 @@ export default class SimpleColoredFolder extends Plugin {
 			this.app.vault.on("rename", async (file, oldPath) => {
 				await this.compiler.renameCss(file, oldPath);
 				if (file instanceof TFolder && file.parent === this.app.vault.getRoot())
-					this.compiler.injectDataPathFromFolder(file);
+					await this.compiler.injectDataPathFromFolder(file);
 			})
 		);
 
@@ -44,7 +43,6 @@ export default class SimpleColoredFolder extends Plugin {
 				await this.compiler.injectStyles();
 			})
 		);
-
 		this.app.workspace.onLayoutReady(async () => {
 			const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
 			if (!styleSettings?._loaded) {
@@ -55,7 +53,7 @@ export default class SimpleColoredFolder extends Plugin {
 				);
 			}
 			const folders = this.compiler.getFolder();
-			this.compiler.injectDataPath(folders);
+			await this.compiler.injectDataPath(folders);
 			await this.compiler.injectStyles(true, folders);
 			this.app.vault.on("create", async (file) => {
 				await this.compiler.injectToRoot(file);
@@ -71,6 +69,7 @@ export default class SimpleColoredFolder extends Plugin {
 		//remove the style
 		this.compiler.style?.detach();
 		this.compiler.style?.remove();
+		document.head.querySelector("#simple-colored-folder")?.remove();
 		this.app.workspace.trigger("css-change");
 	}
 	async loadSettings() {
