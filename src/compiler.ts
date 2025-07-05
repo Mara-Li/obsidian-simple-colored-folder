@@ -1,9 +1,11 @@
+import dedent from "dedent";
+import i18next from "i18next";
 import {
-	normalizePath,
-	TFolder,
 	type App,
+	normalizePath,
 	type PluginManifest,
 	type TAbstractFile,
+	TFolder,
 } from "obsidian";
 import {
 	type Prefix,
@@ -14,9 +16,6 @@ import {
 import type SimpleColoredFolder from "./main";
 import { convertStyleSettings, convertToCSS, generateName, themes } from "./template";
 import { formatCss, removeExtraNewLine } from "./utils";
-import dedent from "dedent";
-import i18next from "i18next";
-import type { DeferredView, FileExplorerView, MaybeDeferredView } from "obsidian-typings";
 
 export class ColorCompiler {
 	plugin: SimpleColoredFolder;
@@ -150,31 +149,55 @@ export class ColorCompiler {
 		return navigation[0].view;
 	}
 
-	injectDataPathFromFolder(folder: TFolder, fileExplorer = this.getFileExplorerView()) {
-		const navigation = this.app.workspace.getLeavesOfType("file-explorer");
-		if (!navigation.length) return;
-		if (!fileExplorer) return;
-		const treeItems = fileExplorer.containerEl.querySelectorAll(
+	async injectDataPathFromFolder(
+		folder: TFolder,
+		fileExplorer = this.getFileExplorerView()
+	) {
+		if (!fileExplorer) {
+			console.warn("File explorer view not found");
+			return;
+		}
+
+		let treeItems = fileExplorer.containerEl.querySelectorAll(
 			`.tree-item.nav-folder > .nav-folder-title[data-path="${folder.path}"]`
 		);
-		if (treeItems.length === 0) return;
+
+		let timeout = 0;
+		const maxTimeout = this.settings.timeout || 50; // valeur par défaut
+
+		while (treeItems.length === 0 && timeout < maxTimeout) {
+			// Attendre un peu avant de réessayer
+			// biome-ignore lint/correctness/noUndeclaredVariables: sleep is a global function in obsidian
+			await sleep(100);
+
+			treeItems = fileExplorer.containerEl.querySelectorAll(
+				`.tree-item.nav-folder > .nav-folder-title[data-path="${folder.path}"]`
+			);
+			timeout++;
+		}
+
+		if (treeItems.length === 0) {
+			console.warn(`Failed to find DOM elements for folder: ${folder.path}`);
+			return;
+		}
+
 		treeItems.forEach((item) => {
 			const treeItem = item.closest(".tree-item.nav-folder");
-			if (treeItem) treeItem.setAttribute("data-path", folder.path);
-
+			if (treeItem) {
+				treeItem.setAttribute("data-path", folder.path);
+			}
 		});
 	}
-
 
 	/**
 	 * Inject the data-path into the .tree-item.nav-folder
 	 */
-	injectDataPath(folders: TFolder[] = this.getFolder()) {
+	async injectDataPath(folders: TFolder[] = this.getFolder()) {
 		const navigation = this.app.workspace.getLeavesOfType("file-explorer");
 		if (!navigation.length) return;
 		const fileExplorer = navigation[0].view;
 		for (const folder of folders) {
-			this.injectDataPathFromFolder(folder, fileExplorer);
+			await this.injectDataPathFromFolder(folder, fileExplorer);
 		}
 	}
 
