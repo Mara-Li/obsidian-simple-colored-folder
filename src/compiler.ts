@@ -103,15 +103,21 @@ export class ColorCompiler {
 		);
 
 		this.style ??= domStyle;
-
-		if (!this.style) {
-			this.style = document.createElement("style");
-			this.style.id = "simple-colored-folder";
-			this.style.setAttribute("type", "text/css");
-			document.head.appendChild(this.style);
+		if (this.style) {
+			//remove the old style
+			this.style.detach();
+			this.style.remove();
+			this.style = null;
 		}
-
+		
+		this.style = document.createElement("style");
+		this.style.id = "simple-colored-folder";
+		this.style.setAttribute("type", "text/css");
 		this.style.textContent = content;
+		document.head.appendChild(this.style);
+	
+
+		
 	}
 
 	async injectToSnippets(content: string) {
@@ -262,9 +268,6 @@ export class ColorCompiler {
 			await this.injectStyles();
 			//@ts-ignore
 			styleSettingPlugin.settingsManager.setSettings(styleSettingsValues);
-		} else {
-			//remove the old keys with reloading from root
-			await this.injectStyles();
 		}
 	}
 
