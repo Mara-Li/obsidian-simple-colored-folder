@@ -1,7 +1,7 @@
 {
 	"id": "simple-colored-folder",
 	"name": "Simple Colored Folder",
-	"version": "1.2.0-0",
+	"version": "1.2.0",
 	"minAppVersion": "1.8.9",
 	"description": "Automagically add color to roots folders and customize them with Style Settings.",
 	"author": "Mara-Li",

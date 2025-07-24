@@ -1,3 +1,8 @@
+## [1.2.0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.0-0...1.2.0) (2025-07-24)
+### Bug Fixes
+
+* color disappear when creating a new file or deleting file ([d16900f](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/d16900fc0ec4edc7f507c957d0d24e945ea5a335))
+
 ## [1.1.0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.0.0...1.1.0) (2025-06-28)
 ### Features
 
