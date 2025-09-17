@@ -1,3 +1,8 @@
+## [1.2.1](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.0...1.2.1) (2025-09-17)
+### Bug Fixes
+
+* add unidecode to standardize function for improved string normalization ([32d3c18](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/32d3c18b024a9c943d689a2bc81619f618afe60b)), closes [#5](https://github.com/Mara-Li/obsidian-simple-colored-folder/issues/5)
+
 ## [1.2.0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.0-0...1.2.0) (2025-07-24)
 ### Bug Fixes
 
