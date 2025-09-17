@@ -19,6 +19,7 @@ export function formatCss(css: string, minify?: boolean): string {
 export function standardize(str: string) {
 	return str
 		.standardize()
+		.unidecode()
 		.replace(/\s/g, "")
 		.replaceAll(/[\.!_]+/g, "");
 }
