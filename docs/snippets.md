@@ -28,7 +28,7 @@ To remove the border when collapsed, add just this in a separate CSS snippet:
 ![tree with colored folders](./assets/indentation.png)
 
 ```css
-.tree-item.nav-folder:has([data-path="${folderName}"]) {
+.tree-item.nav-folder[data-path="${folderName}"] {
     --nav-indentation-guide-color: var(${color});
 }
 ```
