@@ -32,3 +32,16 @@ To remove the border when collapsed, add just this in a separate CSS snippet:
     --nav-indentation-guide-color: var(${color});
 }
 ```
+
+# Adjust hovering and is active colors
+
+```css
+.nav-file-title[class*="is-active"][data-path^="${folderName}"],
+.nav-folder-title[data-path^="${folderName}"]:hover,
+.nav-file-title[data-path^="${folderName}"]:hover,
+.nav-folder-title[class*="is-active"][data-path^="${folderName}"] {
+	color: var(${color}) !important;
+	background-color: var(${bg}) !important;
+	filter: saturate(var(--spf-saturate-hover));
+}
+```
