@@ -17,6 +17,10 @@
 	},
 	"reload": "Il est possible que vous ayez besoin de recharger Obsidian pour que cela fonctionne.",
 	"settings": {
+		"alpha": {
+			"desc": "Transparence (alpha) pour le fond",
+			"title": "Alpha (transparence)"
+		},
 		"customCss": {
 			"desc": "Modèle CSS personnalisé qui sera utilisé pour générer un CSS depuis les dossiers. Merci d'utiliser les variables suivantes : ",
 			"title": "CSS personnalisé"
@@ -30,6 +34,10 @@
 			"desc": "Préfixe pour la génération de variable. Cela permettra au plugin \"Style settings\" de fonctionner, mais vous pourrez aussi les utiliser dans un snippet css.",
 			"folderName": "où le nom du dossier sera normalisé (en supprimant tous les points, les espaces et en mettant le nom en minuscules).",
 			"title": "Préfixe"
+		},
+		"randomColor": {
+			"desc": "Génère aléatoirement une paire de couleurs de fond et de texte pour les nouveaux dossiers.",
+			"title": "Couleur aléatoire"
 		},
 		"reload": "Recharger le style",
 		"snippets": {

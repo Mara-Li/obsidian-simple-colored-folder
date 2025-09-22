@@ -8,6 +8,7 @@ import {
 	TFolder,
 } from "obsidian";
 import {
+	type Colors,
 	type Prefix,
 	type SimpleColoredFolderSettings,
 	STYLE_SPLIT,
@@ -70,7 +71,8 @@ export class ColorCompiler {
       -`);
 	}
 
-	createStyles(folders: TFolder[], minify?: boolean) {
+	createStyles(folders: TFolder[], minify?: boolean, defaultColors?: Colors) {
+		if (!defaultColors) defaultColors = this.settings.defaultColors;
 		let darkTheme = `.theme-dark {`;
 		let lightTheme = `.theme-light {`;
 		let css = "";
@@ -78,14 +80,14 @@ export class ColorCompiler {
 		for (const folder of folders) {
 			const folderName = folder.name;
 			const vn = generateName(this.settings.prefix, folderName, "--");
-			darkTheme += themes(vn, this.settings.defaultColors, "themeDark");
-			lightTheme += themes(vn, this.settings.defaultColors, "themeLight");
+			darkTheme += themes(vn, defaultColors, "themeDark");
+			lightTheme += themes(vn, defaultColors, "themeLight");
 			css += convertToCSS(folderName, this.settings.prefix, this.settings.customTemplate);
 			stylesSettings += convertStyleSettings(
 				folderName,
 				this.settings.prefix,
 				this.settings.customStyleSettings,
-				this.settings.defaultColors
+				defaultColors
 			);
 		}
 		darkTheme += "}";
@@ -109,15 +111,12 @@ export class ColorCompiler {
 			this.style.remove();
 			this.style = null;
 		}
-		
+
 		this.style = document.createElement("style");
 		this.style.id = "simple-colored-folder";
 		this.style.setAttribute("type", "text/css");
 		this.style.textContent = content;
 		document.head.appendChild(this.style);
-	
-
-		
 	}
 
 	async injectToSnippets(content: string) {
@@ -217,11 +216,11 @@ export class ColorCompiler {
 		}
 	}
 
-	async injectStyles(reload = true, folders?: TFolder[]) {
+	async injectStyles(reload = true, folders?: TFolder[], defaultColors?: Colors) {
 		if (!folders) folders = this.getFolder();
 		this.style?.detach();
 		const exportToCSS = this.settings.exportToCSS;
-		const style = this.createStyles(folders, !exportToCSS);
+		const style = this.createStyles(folders, !exportToCSS, defaultColors);
 		if (exportToCSS) await this.injectToSnippets(style);
 		else await this.injectToBody(style);
 		if (reload) this.reload();

@@ -1,16 +1,17 @@
+import dedent from "dedent";
+import i18next from "i18next";
 import {
 	type App,
+	Component,
 	MarkdownRenderer,
 	PluginSettingTab,
-	sanitizeHTMLToDom,
 	Setting,
+	sanitizeHTMLToDom,
 } from "obsidian";
-import type SimpleColoredFolder from "./main";
-import i18next from "i18next";
+import { PickerSettingsComponent } from "./color-picker";
 import type { ColorCompiler } from "./compiler";
 import type { SimpleColoredFolderSettings } from "./interfaces";
-import { PickerSettingsComponent } from "./color-picker";
-import dedent from "dedent";
+import type SimpleColoredFolder from "./main";
 
 export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 	plugin: SimpleColoredFolder;
@@ -29,6 +30,9 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
+		const component = new Component();
+		component.load();
+
 		if (!styleSettings?._loaded) {
 			await MarkdownRenderer.render(
 				this.app,
@@ -39,7 +43,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 				`,
 				this.containerEl,
 				"",
-				this.plugin
+				component
 			);
 			return;
 		}
@@ -56,7 +60,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					this.settings.exportToCSS = value;
 					await this.plugin.saveSettings();
 					await this.compiler.injectStyles();
-					this.display();
+					await this.display();
 				})
 			);
 		if (this.settings.exportToCSS) {
@@ -78,28 +82,71 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setClass("no-border")
 			.setHeading();
 
-		new PickerSettingsComponent(
-			containerEl,
-			i18next.t("common.background"),
-			this.settings.defaultColors.bg,
-			async (value) => {
-				this.settings.defaultColors.bg.themeLight = value.themeLight;
-				this.settings.defaultColors.bg.themeDark = value.themeDark;
-				await this.plugin.saveSettings();
-				await this.compiler.injectStyles();
-			}
-		);
-		new PickerSettingsComponent(
-			containerEl,
-			i18next.t("common.color"),
-			this.settings.defaultColors.color,
-			async (value) => {
-				this.settings.defaultColors.color.themeLight = value.themeLight;
-				this.settings.defaultColors.color.themeDark = value.themeDark;
-				await this.plugin.saveSettings();
-				await this.compiler.injectStyles();
-			}
-		);
+		new Setting(containerEl)
+			.setName(i18next.t("settings.randomColor.title"))
+			.setDesc(i18next.t("settings.randomColor.desc"))
+			.setClass("no-border")
+			.addToggle((cb) =>
+				cb.setValue(this.settings.randomColor).onChange(async (value) => {
+					this.settings.randomColor = value;
+					await this.plugin.saveSettings();
+					await this.compiler.injectStyles();
+					await this.display();
+				})
+			);
+		if (!this.settings.randomColor) {
+			new PickerSettingsComponent(
+				containerEl,
+				i18next.t("common.background"),
+				this.settings.defaultColors.bg,
+				async (value) => {
+					this.settings.defaultColors.bg.themeLight = value.themeLight;
+					this.settings.defaultColors.bg.themeDark = value.themeDark;
+					await this.plugin.saveSettings();
+					await this.compiler.injectStyles();
+				}
+			);
+			new PickerSettingsComponent(
+				containerEl,
+				i18next.t("common.color"),
+				this.settings.defaultColors.color,
+				async (value) => {
+					this.settings.defaultColors.color.themeLight = value.themeLight;
+					this.settings.defaultColors.color.themeDark = value.themeDark;
+					await this.plugin.saveSettings();
+					await this.compiler.injectStyles();
+				}
+			);
+		} else {
+			new Setting(containerEl)
+				.setName(i18next.t("settings.alpha.title"))
+				.setDesc(i18next.t("settings.alpha.desc"));
+			new Setting(containerEl)
+				.setName(i18next.t("common.background"))
+				.setClass("no-border")
+				.addSlider((slider) => {
+					slider
+						.setLimits(0, 1, 0.01)
+						.setValue(this.settings.alpha.bg)
+						.onChange(async (value) => {
+							this.settings.alpha.bg = value;
+							await this.plugin.saveSettings();
+							await this.compiler.injectStyles();
+						});
+				});
+			new Setting(containerEl)
+				.setName(i18next.t("common.color"))
+				.setClass("no-border")
+				.addSlider((slider) => {
+					slider
+						.setLimits(0, 1, 0.01)
+						.setValue(this.settings.alpha.color)
+						.onChange(async (value) => {
+							this.settings.alpha.color = value;
+							await this.plugin.saveSettings();
+						});
+				});
+		}
 		this.containerEl.createEl("hr");
 		new Setting(containerEl).setName(i18next.t("settings.prefix.title")).setHeading();
 
@@ -113,8 +160,10 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			`,
 			this.containerEl,
 			"",
-			this.plugin
+			component
 		);
+
+		component.unload();
 
 		new Setting(containerEl)
 			.setName(i18next.t("common.color"))

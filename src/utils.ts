@@ -27,3 +27,12 @@ export function standardize(str: string) {
 export function removeExtraNewLine(str: string) {
 	return str.replaceAll(/\s{4}\n/g, "\n").replaceAll(/\n{2,}/g, "\n");
 }
+
+export function generateRandomColor(alpha?: number) {
+	const color = Math.floor(Math.random() * 0xffffff);
+	const hex = color.toString(16).padStart(6, "0");
+	const clamped = Math.max(0, Math.min(1, alpha ?? 1));
+	const alphaInt = Math.round(clamped * 255);
+	const alphaHex = alphaInt.toString(16).padStart(2, "0");
+	return `#${hex}${alphaHex}`;
+}

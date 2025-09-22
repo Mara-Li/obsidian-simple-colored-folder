@@ -17,6 +17,11 @@ export interface SimpleColoredFolderSettings {
 	 */
 	includeStyleInExport: boolean;
 	timeout: number;
+	randomColor: boolean;
+	alpha: {
+		bg: number;
+		color: number;
+	};
 }
 
 export type ThemedColors = {
@@ -50,6 +55,11 @@ export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 	defaultColors: DEFAULT_COLORS,
 	includeStyleInExport: false,
 	timeout: 1000,
+	randomColor: false,
+	alpha: {
+		bg: 1,
+		color: 1,
+	},
 };
 
 export type StyleSettingValue = number | string | boolean;

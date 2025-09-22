@@ -17,6 +17,10 @@
 	},
 	"reload": "It is possible that you need to reload Obsidian to make it works.",
 	"settings": {
+		"alpha": {
+			"desc": "Transparency (alpha) for the background",
+			"title": "Alpha (transparency)"
+		},
 		"customCss": {
 			"desc": "Custom CSS template to generate a style from folders. Please use the following variables:",
 			"title": "Custom CSS"
@@ -30,6 +34,10 @@
 			"desc": "Prefix for variable generation. This will allow Style Settings to works, but you can edit them also in a CSS snippets.",
 			"folderName": "where folder name will be standardized (removing all points, space and set to lowercase).",
 			"title": "Prefix"
+		},
+		"randomColor": {
+			"desc": "Generate a random pair of background and foreground for the new folders.",
+			"title": "Random color"
 		},
 		"reload": "Reload style",
 		"snippets": {

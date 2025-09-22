@@ -1,8 +1,13 @@
 import dedent from "dedent";
-import { type Colors, DEFAULT_COLOR, type Prefix } from "./interfaces";
+import {
+	type Colors,
+	DEFAULT_COLOR,
+	type Prefix,
+	type SimpleColoredFolderSettings,
+} from "./interfaces";
 import "uniformize";
 import i18next from "i18next";
-import { standardize } from "./utils";
+import { generateRandomColor, standardize } from "./utils";
 
 export function generateName(prefix: Prefix, folder: string, cssVar = ""): Prefix {
 	return {
@@ -98,4 +103,17 @@ export function themes(
 				${vn.bg}: ${defaultColor.bg[theme]};
 				${vn.color}: ${color};
 	`);
+}
+
+export function defaultColors(settings: SimpleColoredFolderSettings) {
+	return {
+		bg: {
+			themeDark: generateRandomColor(settings.alpha.bg),
+			themeLight: generateRandomColor(settings.alpha.bg),
+		},
+		color: {
+			themeDark: generateRandomColor(settings.alpha.color),
+			themeLight: generateRandomColor(settings.alpha.color),
+		},
+	};
 }
