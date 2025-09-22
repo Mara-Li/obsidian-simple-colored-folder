@@ -1,3 +1,8 @@
+## [1.2.2](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.1...1.2.2) (2025-09-22)
+### Bug Fixes
+
+* hovering and is-active should not be overwritten ([78de01f](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/78de01f17eb4de3be73e3d72d5f520d479f39d35)), closes [#6](https://github.com/Mara-Li/obsidian-simple-colored-folder/issues/6)
+
 ## [1.2.1](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.0...1.2.1) (2025-09-17)
 ### Bug Fixes
 
