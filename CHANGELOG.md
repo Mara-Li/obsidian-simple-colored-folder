@@ -1,3 +1,8 @@
+## [1.2.3](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.2...1.2.3) (2025-10-13)
+### Bug Fixes
+
+* update regex to include additional punctuation in string replacement ([cc77f9d](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/cc77f9dc9824cae05aa77301d9d669ddd3308535)), closes [#8](https://github.com/Mara-Li/obsidian-simple-colored-folder/issues/8)
+
 ## [1.2.2](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.1...1.2.2) (2025-09-22)
 ### Bug Fixes
 
