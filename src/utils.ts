@@ -21,7 +21,7 @@ export function standardize(str: string) {
 		.standardize()
 		.unidecode()
 		.replace(/\s/g, "")
-		.replaceAll(/[\.!_]+/g, "");
+		.replaceAll(/[\.!_,&]+/g, "");
 }
 
 export function removeExtraNewLine(str: string) {
