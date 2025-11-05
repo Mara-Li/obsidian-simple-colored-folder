@@ -1,3 +1,8 @@
+## [1.3.0-0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.3...1.3.0-0) (2025-11-05)
+### Features
+
+* add timeout settings for mobile and desktop in plugin configuration ([fba53b4](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/fba53b43fc239d8980524b7ba0f003e686b8246e))
+
 ## [1.2.0-0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.1.0...1.2.0-0) (2025-07-05)
 ### Features
 
