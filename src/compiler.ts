@@ -109,15 +109,12 @@ export class ColorCompiler {
 			this.style.remove();
 			this.style = null;
 		}
-		
+
 		this.style = document.createElement("style");
 		this.style.id = "simple-colored-folder";
 		this.style.setAttribute("type", "text/css");
 		this.style.textContent = content;
 		document.head.appendChild(this.style);
-	
-
-		
 	}
 
 	async injectToSnippets(content: string) {
@@ -159,6 +156,11 @@ export class ColorCompiler {
 			);
 	}
 
+	private getTimeout() {
+		if (this.app.isMobile) return this.settings.timeout.mobile;
+		return this.settings.timeout.desktop;
+	}
+
 	private getFileExplorerView() {
 		const navigation = this.app.workspace.getLeavesOfType("file-explorer");
 		if (navigation.length === 0) return null;
@@ -179,7 +181,7 @@ export class ColorCompiler {
 		);
 
 		let timeout = 0;
-		const maxTimeout = this.settings.timeout || 50; // valeur par défaut
+		const maxTimeout = this.getTimeout() || 50; // valeur par défaut
 
 		while (treeItems.length === 0 && timeout < maxTimeout) {
 			// Attendre un peu avant de réessayer

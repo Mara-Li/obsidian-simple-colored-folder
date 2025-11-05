@@ -43,6 +43,13 @@
 			"title": "Style settings personnalisé",
 			"without": "sans les propriétés"
 		},
+		"timeout": {
+			"desc": "Si les couleurs n'apparaissent pas avant ce moment, essayez d'augmenter la valeur.",
+			"desktop": "Bureau",
+			"invalid": "Please set a valid number",
+			"mobile": "Mobile",
+			"title": "Timeout"
+		},
 		"warning": "Cela aura pour conséquence de réinitialiser vos paramètres Style Settings ! "
 	},
 	"warning": "Merci d'activer le module \"Style Settings\"."

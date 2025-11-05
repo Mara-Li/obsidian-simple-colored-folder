@@ -1,16 +1,17 @@
+import dedent from "dedent";
+import i18next from "i18next";
 import {
 	type App,
 	MarkdownRenderer,
+	Notice,
 	PluginSettingTab,
-	sanitizeHTMLToDom,
 	Setting,
+	sanitizeHTMLToDom,
 } from "obsidian";
-import type SimpleColoredFolder from "./main";
-import i18next from "i18next";
+import { PickerSettingsComponent } from "./color-picker";
 import type { ColorCompiler } from "./compiler";
 import type { SimpleColoredFolderSettings } from "./interfaces";
-import { PickerSettingsComponent } from "./color-picker";
-import dedent from "dedent";
+import type SimpleColoredFolder from "./main";
 
 export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 	plugin: SimpleColoredFolder;
@@ -47,6 +48,60 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		this.containerEl.addClass(`spf`);
 
 		containerEl.empty();
+
+		new Setting(containerEl)
+			.setName(i18next.t("settings.timeout.title"))
+			.setDesc(i18next.t("settings.timeout.desc"));
+		new Setting(containerEl)
+			.setName(i18next.t("settings.timeout.mobile"))
+			.setClass("no-border")
+			.setClass("left")
+			.addText((text) => {
+				text.setValue(this.settings.timeout.mobile.toString());
+				text.inputEl.onblur = async () => {
+					const value = parseInt(text.getValue(), 10);
+					if (!isNaN(value)) {
+						this.settings.timeout.mobile = value;
+						await this.plugin.saveSettings();
+						//remove the error class if present
+						text.inputEl.classList.remove("spf-error");
+					} else {
+						new Notice(
+							sanitizeHTMLToDom(
+								`<span class="spf-warning">${i18next.t("settings.timeout.invalid")}</span>`
+							)
+						);
+						text.inputEl.classList.add("spf-error");
+					}
+				};
+			});
+
+		new Setting(containerEl)
+			.setName(i18next.t("settings.timeout.desktop"))
+			.setClass("no-border")
+			.setClass("left")
+			.addText((text) => {
+				text.setValue(this.settings.timeout.desktop.toString());
+				text.inputEl.onblur = async () => {
+					const value = parseInt(text.getValue(), 10);
+					if (!isNaN(value)) {
+						this.settings.timeout.desktop = value;
+						await this.plugin.saveSettings();
+						//remove the error class if present
+						text.inputEl.classList.remove("spf-error");
+					} else {
+						new Notice(
+							sanitizeHTMLToDom(
+								`<span class="spf-warning">${i18next.t("settings.timeout.invalid")}</span>`
+							)
+						);
+						text.inputEl.classList.add("spf-error");
+					}
+				};
+			});
+
+		this.containerEl.createEl("hr");
+
 		new Setting(containerEl)
 			.setName(i18next.t("settings.snippets.title"))
 			.setClass("no-border")
@@ -56,7 +111,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					this.settings.exportToCSS = value;
 					await this.plugin.saveSettings();
 					await this.compiler.injectStyles();
-					this.display();
+					await this.display();
 				})
 			);
 		if (this.settings.exportToCSS) {

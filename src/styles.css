@@ -165,3 +165,21 @@ body:not(.is-grabbing) .nav-folder-title:hover {
 .spf .setting-item .pickr .pcr-button:before {
 	border-radius: 0 !important;
 }
+
+input.spf-error {
+	border-color: var(--text-error);
+	color: var(--text-error);
+}
+input.spf-error:hover,
+input.spf-error:focus,
+input.spf-error:active {
+	box-shadow: 0 0 0 1px var(--text-error);
+	border-color: var(--text-error);
+}
+
+.spf .left {
+	position: relative;
+	left: 1em;
+	border-left: 1px dashed var(--text-faint);
+	padding-left: 1em;
+}

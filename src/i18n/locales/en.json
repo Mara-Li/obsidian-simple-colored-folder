@@ -43,6 +43,13 @@
 			"title": "Custom style settings",
 			"without": "without the properties"
 		},
+		"timeout": {
+			"desc": "If the colors don't show up until this time, try to increase it.",
+			"desktop": "Desktop",
+			"invalid": "Please set a valid number",
+			"mobile": "Mobile",
+			"title": "Timeout"
+		},
 		"warning": "This will reset your Style Settings! "
 	},
 	"warning": "Please enable 'Style Settings' plugin"
