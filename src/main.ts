@@ -84,7 +84,7 @@ export default class SimpleColoredFolder extends Plugin {
 			console.warn(
 				"[Simple colored folder] Error while deep merging settings, using default loading method"
 			);
-			this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+			this.settings = Object.assign({}, DEFAULT_SETTINGS, loadedData);
 		}
 	}
 	async saveSettings() {
