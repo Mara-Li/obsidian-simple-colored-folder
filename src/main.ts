@@ -1,6 +1,8 @@
 import dedent from "dedent";
+import { deepmerge } from "deepmerge-ts";
 import i18next from "i18next";
 import { Notice, normalizePath, Plugin, sanitizeHTMLToDom, TFolder } from "obsidian";
+import { merge } from "ts-deepmerge";
 import { ColorCompiler } from "./compiler";
 import { resources, translationLanguage } from "./i18n";
 import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
@@ -73,7 +75,18 @@ export default class SimpleColoredFolder extends Plugin {
 		this.app.workspace.trigger("css-change");
 	}
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		const loadedData = await this.loadData();
+		try {
+			this.settings = merge(
+				DEFAULT_SETTINGS,
+				loadedData
+			) as unknown as SimpleColoredFolderSettings;
+		} catch (_e) {
+			console.warn(
+				"[Simple colored folder] Error while deep merging settings, using default loading method"
+			);
+			this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		}
 	}
 	async saveSettings() {
 		await this.saveData(this.settings);
