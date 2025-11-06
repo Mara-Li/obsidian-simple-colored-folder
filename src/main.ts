@@ -75,6 +75,7 @@ export default class SimpleColoredFolder extends Plugin {
 	}
 	async loadSettings() {
 		const loadedData = await this.loadData();
+		if (loadedData.timeout instanceof Number) delete loadedData.timeout;
 		try {
 			this.settings = merge(
 				DEFAULT_SETTINGS,
