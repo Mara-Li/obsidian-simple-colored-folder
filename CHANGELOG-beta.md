@@ -1,3 +1,8 @@
+## [1.3.0-1](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-0...1.3.0-1) (2025-11-06)
+### Bug Fixes
+
+* deepmerge settings ([3031c56](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/3031c56ba4190b17f3985663296452f4d0eb6f94))
+
 ## [1.3.0-0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.3...1.3.0-0) (2025-11-05)
 ### Features
 
