@@ -1,3 +1,8 @@
+## [1.3.0-3](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-2...1.3.0-3) (2025-11-06)
+### Bug Fixes
+
+* update settings loading method to use loaded data ([53f43ad](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/53f43ad3f35c939abe3837f51919c2e7a738e51f))
+
 ## [1.3.0-2](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-1...1.3.0-2) (2025-11-06)
 ### Bug Fixes
 
