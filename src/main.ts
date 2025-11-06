@@ -1,5 +1,4 @@
 import dedent from "dedent";
-import { deepmerge } from "deepmerge-ts";
 import i18next from "i18next";
 import { Notice, normalizePath, Plugin, sanitizeHTMLToDom, TFolder } from "obsidian";
 import { merge } from "ts-deepmerge";
