@@ -171,7 +171,11 @@ export class ColorCompiler {
 		folder: TFolder,
 		fileExplorer = this.getFileExplorerView()
 	) {
-		if (!fileExplorer) {
+		if (
+			!fileExplorer ||
+			!fileExplorer.containerEl ||
+			fileExplorer.containerEl.getAttr("data-type") === "undefined"
+		) {
 			console.warn("File explorer view not found");
 			return;
 		}
@@ -181,10 +185,10 @@ export class ColorCompiler {
 		);
 
 		let timeout = 0;
-		const maxTimeout = this.getTimeout() || 50;
+		const maxTimeout = this.getTimeout();
 		while (treeItems.length === 0 && timeout < maxTimeout) {
 			// biome-ignore lint/correctness/noUndeclaredVariables: sleep is a global function in obsidian
-			await sleep(100);
+			await sleep(10);
 			treeItems = fileExplorer.containerEl.querySelectorAll(
 				`.tree-item.nav-folder > .nav-folder-title[data-path="${folder.path}"]`
 			);

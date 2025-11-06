@@ -49,7 +49,7 @@
 			"explain": "Globally, the plugin will loop until it found the node at {{- code}}.",
 			"invalid": "Please set a valid number",
 			"mobile": "Mobile",
-			"mobileDesc": "It will take {{- calc}}s until it will stop searching node.",
+			"mobileDesc": "It will take {{- calc}}s until it will stop searching node. Also, it allows to wait for the explorer to be ready.",
 			"reload": "Requires reloading Obsidian or the plugin.",
 			"title": "Timeout"
 		},

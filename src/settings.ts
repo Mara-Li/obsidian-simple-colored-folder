@@ -51,7 +51,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 
 		const timeOutdesc = sanitizeHTMLToDom(
 			`${i18next.t("settings.timeout.desc")}<br/>${i18next.t("settings.timeout.explain", {
-				code: "<code>timeout*100ms</code>",
+				code: "<code>timeout*10ms</code>",
 			})}<br>${i18next.t("settings.timeout.reload")}`
 		);
 
@@ -65,7 +65,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setDesc(
 				sanitizeHTMLToDom(
 					`${i18next.t("settings.timeout.mobileDesc", {
-						calc: `<code>${(this.settings.maxTimeout.mobile * 100) / 1000}s</code>`,
+						calc: `<code>${(this.settings.maxTimeout.mobile * 10) / 1000}s</code>`,
 					})}`
 				)
 			)
@@ -95,7 +95,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setDesc(
 				sanitizeHTMLToDom(
 					`${i18next.t("settings.timeout.mobileDesc", {
-						calc: `<code>${(this.settings.maxTimeout.desktop * 100) / 1000}s</code>`,
+						calc: `<code>${(this.settings.maxTimeout.desktop * 10) / 1000}s</code>`,
 					})}`
 				)
 			)

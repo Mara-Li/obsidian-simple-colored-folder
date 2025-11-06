@@ -55,6 +55,8 @@ export default class SimpleColoredFolder extends Plugin {
 				);
 			}
 			const folders = this.compiler.getFolder();
+			// biome-ignore lint/correctness/noUndeclaredVariables: sleep is a global function in obsidian
+			if (this.app.isMobile) await sleep(this.settings.maxTimeout.mobile);
 			await this.compiler.injectDataPath(folders);
 			await this.compiler.injectStyles(true, folders);
 			this.app.vault.on("create", async (file) => {

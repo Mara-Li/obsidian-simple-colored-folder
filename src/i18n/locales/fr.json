@@ -49,7 +49,7 @@
 			"explain": "Globalement, le plugin effectuera une boucle jusqu'à ce qu'il trouve le nœud à {{- code}}.",
 			"invalid": "Please set a valid number",
 			"mobile": "Mobile",
-			"mobileDesc": "Il faudra {{- calc}} secondes avant que la recherche du nœud s'arrête.",
+			"mobileDesc": "Il faudra {{- calc}} secondes avant que la recherche du nœud s'arrête. Cela permet aussi d'attendre que l'explorateur soit prêt.",
 			"reload": "Nécessite un rechargement d'Obsidian ou du plugin.",
 			"title": "Timeout"
 		},
