@@ -1,3 +1,9 @@
+## [1.3.0-5](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-4...1.3.0-5) (2025-11-06)
+### Bug Fixes
+
+* old timeout should be updated so we delete the key ([bc32dce](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/bc32dce1b0f8e2168de6eec2da58efdb56e1c9dd))
+* rename timeout settings to maxTimeout and migrate old settings ([50a6a82](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/50a6a82ed4a81886e049039b6ae45c6092627aa5))
+
 ## [1.3.0-4](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-3...1.3.0-4) (2025-11-06)
 ### Bug Fixes
 
