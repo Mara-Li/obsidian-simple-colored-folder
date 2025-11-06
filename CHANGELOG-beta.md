@@ -1,3 +1,8 @@
+## [1.3.0-4](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-3...1.3.0-4) (2025-11-06)
+### Bug Fixes
+
+* enhance timeout settings descriptions and add explanations ([24ce9dc](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/24ce9dc2c144f16bab4ac4ed6ec625613b47aeb9))
+
 ## [1.3.0-3](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-2...1.3.0-3) (2025-11-06)
 ### Bug Fixes
 
