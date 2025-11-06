@@ -1,3 +1,8 @@
+## [1.3.0-7](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-6...1.3.0-7) (2025-11-06)
+### Features
+
+* improve UI ([c3d4896](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/c3d489664e66459699b7638e32100da2bbcf8301))
+
 ## [1.3.0-6](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-5...1.3.0-6) (2025-11-06)
 ### Bug Fixes
 
