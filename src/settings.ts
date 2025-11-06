@@ -25,39 +25,14 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		this.compiler = plugin.compiler;
 	}
 
-	async display() {
-		const { containerEl } = this;
-
-		containerEl.empty();
-		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
-		if (!styleSettings?._loaded) {
-			await MarkdownRenderer.render(
-				this.app,
-				dedent`> [!warning]
-				> ${i18next.t("notEnabled")}  
-				>
-				> ${i18next.t("reload")}
-				`,
-				this.containerEl,
-				"",
-				this.plugin
-			);
-			return;
-		}
-
-		this.containerEl.addClass(`spf`);
-
-		containerEl.empty();
-
+	async timeoutSettings(containerEl: HTMLElement) {
 		const timeOutdesc = sanitizeHTMLToDom(
 			`${i18next.t("settings.timeout.desc")}<br/>${i18next.t("settings.timeout.explain", {
 				code: "<code>timeout*10ms</code>",
 			})}<br>${i18next.t("settings.timeout.reload")}`
 		);
 
-		new Setting(containerEl)
-			.setName(i18next.t("settings.timeout.title"))
-			.setDesc(timeOutdesc);
+		new Setting(containerEl).setDesc(timeOutdesc);
 		new Setting(containerEl)
 			.setName(i18next.t("settings.timeout.mobile"))
 			.setClass("no-border")
@@ -94,7 +69,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setName(i18next.t("settings.timeout.desktop"))
 			.setDesc(
 				sanitizeHTMLToDom(
-					`${i18next.t("settings.timeout.mobileDesc", {
+					`${i18next.t("settings.timeout.desktopDesc", {
 						calc: `<code>${(this.settings.maxTimeout.desktop * 10) / 1000}s</code>`,
 					})}`
 				)
@@ -121,8 +96,28 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					}
 				};
 			});
+	}
 
-		this.containerEl.createEl("hr");
+	async display() {
+		const { containerEl } = this;
+
+		containerEl.empty();
+		this.containerEl.addClass(`spf`);
+		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
+		if (!styleSettings?._loaded) {
+			await MarkdownRenderer.render(
+				this.app,
+				dedent`> [!warning]
+				> ${i18next.t("notEnabled")}  
+				>
+				> ${i18next.t("reload")}
+				`,
+				this.containerEl,
+				"",
+				this.plugin
+			);
+			return;
+		}
 
 		new Setting(containerEl)
 			.setName(i18next.t("settings.snippets.title"))
@@ -264,5 +259,17 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					await this.compiler.injectStyles();
 				};
 			});
+
+		//create a spoiler for timeout settings
+		containerEl.createEl("hr");
+		const timeoutSpoiler = containerEl.createEl("details");
+		timeoutSpoiler.createEl("summary", {
+			text: i18next.t("settings.timeout.title"),
+			cls: "setting-item-name setting-item-heading spf-summary no-border",
+		});
+		const timeoutContainer = timeoutSpoiler.createEl("div", {
+			cls: "spf-timeout-container",
+		});
+		await this.timeoutSettings(timeoutContainer);
 	}
 }

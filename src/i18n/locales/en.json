@@ -46,6 +46,7 @@
 		"timeout": {
 			"desc": "If the colors don't show up, try to increase or decrease cette valeur.",
 			"desktop": "Desktop",
+			"desktopDesc": "It will take {{- calc}}s until it will stop searching node.",
 			"explain": "Globally, the plugin will loop until it found the node at {{- code}}.",
 			"invalid": "Please set a valid number",
 			"mobile": "Mobile",

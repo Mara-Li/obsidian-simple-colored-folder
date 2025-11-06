@@ -46,6 +46,7 @@
 		"timeout": {
 			"desc": "Si les couleurs n'apparaissent pas, essayez d'augmenter ou diminuer cette valeur.",
 			"desktop": "Bureau",
+			"desktopDesc": "Il faudra {{- calc}} secondes avant que la recherche du nœud s'arrête.",
 			"explain": "Globalement, le plugin effectuera une boucle jusqu'à ce qu'il trouve le nœud à {{- code}}.",
 			"invalid": "Please set a valid number",
 			"mobile": "Mobile",

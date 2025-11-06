@@ -193,3 +193,7 @@ input.spf-error:active {
 .is-mobile .spf input[type="text"] {
 	width: 20em;
 }
+
+.spf .spf-summary {
+	padding: 0.5em;
+}
