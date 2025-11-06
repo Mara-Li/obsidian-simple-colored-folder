@@ -44,10 +44,13 @@
 			"without": "sans les propriétés"
 		},
 		"timeout": {
-			"desc": "Si les couleurs n'apparaissent pas avant ce moment, essayez d'augmenter la valeur.",
+			"desc": "Si les couleurs n'apparaissent pas, essayez d'augmenter ou diminuer cette valeur.",
 			"desktop": "Bureau",
+			"explain": "Globalement, le plugin effectuera une boucle jusqu'à ce qu'il trouve le nœud à {{- code}}.",
 			"invalid": "Please set a valid number",
 			"mobile": "Mobile",
+			"mobileDesc": "Il faudra {{- calc}} secondes avant que la recherche du nœud s'arrête.",
+			"reload": "Nécessite un rechargement d'Obsidian ou du plugin.",
 			"title": "Timeout"
 		},
 		"warning": "Cela aura pour conséquence de réinitialiser vos paramètres Style Settings ! "

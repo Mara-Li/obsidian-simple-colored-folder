@@ -183,3 +183,13 @@ input.spf-error:active {
 	border-left: 1px dashed var(--text-faint);
 	padding-left: 1em;
 }
+
+.spf .setting-item-description code {
+	padding: 0;
+	bottom: 0;
+	font-size: var(--font-medium);
+}
+
+.is-mobile .spf input[type="text"] {
+	width: 20em;
+}

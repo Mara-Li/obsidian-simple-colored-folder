@@ -49,13 +49,26 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 
+		const timeOutdesc = sanitizeHTMLToDom(
+			`${i18next.t("settings.timeout.desc")}<br/>${i18next.t("settings.timeout.explain", {
+				code: "<code>timeout*100ms</code>",
+			})}<br>${i18next.t("settings.timeout.reload")}`
+		);
+
 		new Setting(containerEl)
 			.setName(i18next.t("settings.timeout.title"))
-			.setDesc(i18next.t("settings.timeout.desc"));
+			.setDesc(timeOutdesc);
 		new Setting(containerEl)
 			.setName(i18next.t("settings.timeout.mobile"))
 			.setClass("no-border")
 			.setClass("left")
+			.setDesc(
+				sanitizeHTMLToDom(
+					`${i18next.t("settings.timeout.mobileDesc", {
+						calc: `<code>${(this.settings.timeout.mobile * 100) / 1000}s</code>`,
+					})}`
+				)
+			)
 			.addText((text) => {
 				text.setValue(this.settings.timeout.mobile.toString());
 				text.inputEl.onblur = async () => {
@@ -65,6 +78,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 						await this.plugin.saveSettings();
 						//remove the error class if present
 						text.inputEl.classList.remove("spf-error");
+						await this.display();
 					} else {
 						new Notice(
 							sanitizeHTMLToDom(
@@ -78,6 +92,13 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName(i18next.t("settings.timeout.desktop"))
+			.setDesc(
+				sanitizeHTMLToDom(
+					`${i18next.t("settings.timeout.mobileDesc", {
+						calc: `<code>${(this.settings.timeout.desktop * 100) / 1000}s</code>`,
+					})}`
+				)
+			)
 			.setClass("no-border")
 			.setClass("left")
 			.addText((text) => {
@@ -89,6 +110,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 						await this.plugin.saveSettings();
 						//remove the error class if present
 						text.inputEl.classList.remove("spf-error");
+						await this.display();
 					} else {
 						new Notice(
 							sanitizeHTMLToDom(
