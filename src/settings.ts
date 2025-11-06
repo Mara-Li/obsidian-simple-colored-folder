@@ -65,16 +65,16 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setDesc(
 				sanitizeHTMLToDom(
 					`${i18next.t("settings.timeout.mobileDesc", {
-						calc: `<code>${(this.settings.timeout.mobile * 100) / 1000}s</code>`,
+						calc: `<code>${(this.settings.maxTimeout.mobile * 100) / 1000}s</code>`,
 					})}`
 				)
 			)
 			.addText((text) => {
-				text.setValue(this.settings.timeout.mobile.toString());
+				text.setValue(this.settings.maxTimeout.mobile.toString());
 				text.inputEl.onblur = async () => {
 					const value = parseInt(text.getValue(), 10);
 					if (!isNaN(value)) {
-						this.settings.timeout.mobile = value;
+						this.settings.maxTimeout.mobile = value;
 						await this.plugin.saveSettings();
 						//remove the error class if present
 						text.inputEl.classList.remove("spf-error");
@@ -95,18 +95,18 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			.setDesc(
 				sanitizeHTMLToDom(
 					`${i18next.t("settings.timeout.mobileDesc", {
-						calc: `<code>${(this.settings.timeout.desktop * 100) / 1000}s</code>`,
+						calc: `<code>${(this.settings.maxTimeout.desktop * 100) / 1000}s</code>`,
 					})}`
 				)
 			)
 			.setClass("no-border")
 			.setClass("left")
 			.addText((text) => {
-				text.setValue(this.settings.timeout.desktop.toString());
+				text.setValue(this.settings.maxTimeout.desktop.toString());
 				text.inputEl.onblur = async () => {
 					const value = parseInt(text.getValue(), 10);
 					if (!isNaN(value)) {
-						this.settings.timeout.desktop = value;
+						this.settings.maxTimeout.desktop = value;
 						await this.plugin.saveSettings();
 						//remove the error class if present
 						text.inputEl.classList.remove("spf-error");

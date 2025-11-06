@@ -157,8 +157,8 @@ export class ColorCompiler {
 	}
 
 	private getTimeout() {
-		if (this.app.isMobile) return this.settings.timeout.mobile;
-		return this.settings.timeout.desktop;
+		if (this.app.isMobile) return this.settings.maxTimeout.mobile;
+		return this.settings.maxTimeout.desktop;
 	}
 
 	private getFileExplorerView() {
@@ -181,13 +181,10 @@ export class ColorCompiler {
 		);
 
 		let timeout = 0;
-		const maxTimeout = this.getTimeout() || 50; // valeur par défaut
-
+		const maxTimeout = this.getTimeout() || 50;
 		while (treeItems.length === 0 && timeout < maxTimeout) {
-			// Attendre un peu avant de réessayer
 			// biome-ignore lint/correctness/noUndeclaredVariables: sleep is a global function in obsidian
 			await sleep(100);
-
 			treeItems = fileExplorer.containerEl.querySelectorAll(
 				`.tree-item.nav-folder > .nav-folder-title[data-path="${folder.path}"]`
 			);

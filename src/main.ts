@@ -16,6 +16,7 @@ export default class SimpleColoredFolder extends Plugin {
 	async onload() {
 		console.log(`[${this.manifest.name}] Loaded`);
 		await this.loadSettings();
+		await this.migrateSettings();
 		//load i18next
 		await i18next.init({
 			lng: translationLanguage,
@@ -75,7 +76,6 @@ export default class SimpleColoredFolder extends Plugin {
 	}
 	async loadSettings() {
 		const loadedData = await this.loadData();
-		if (loadedData.timeout instanceof Number) delete loadedData.timeout;
 		try {
 			this.settings = merge(
 				DEFAULT_SETTINGS,
@@ -90,5 +90,13 @@ export default class SimpleColoredFolder extends Plugin {
 	}
 	async saveSettings() {
 		await this.saveData(this.settings);
+	}
+
+	async migrateSettings() {
+		if ("timeout" in this.settings) {
+			console.warn("[Simple colored folder] Migrating settings: removing timeout");
+			delete (this.settings as any)["timeout"];
+			await this.saveSettings();
+		}
 	}
 }
