@@ -1,3 +1,8 @@
+## [1.3.0-2](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-1...1.3.0-2) (2025-11-06)
+### Bug Fixes
+
+* remove unused import that brokes buid ([a1cc3dd](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/a1cc3dd3e7b1ee056dbcca0bd951092ef5a2a00e))
+
 ## [1.3.0-1](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-0...1.3.0-1) (2025-11-06)
 ### Bug Fixes
 
