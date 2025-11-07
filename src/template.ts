@@ -6,8 +6,8 @@ import { standardize } from "./utils";
 
 export function generateName(prefix: Prefix, folder: string, cssVar = ""): Prefix {
 	return {
-		bg: `${cssVar}${prefix.bg}-${standardize(folder).replace(/[^a-zA-Z0-9_-]/, "")}`,
-		color: `${cssVar}${prefix.color}-${standardize(folder).replace(/[^a-zA-Z0-9_-]/, "")}`,
+		bg: `${cssVar}${prefix.bg}-${standardize(folder).replace(/[^a-zA-Z0-9_-]/g, "")}`,
+		color: `${cssVar}${prefix.color}-${standardize(folder).replace(/[^a-zA-Z0-9_-]/g, "")}`,
 	};
 }
 
