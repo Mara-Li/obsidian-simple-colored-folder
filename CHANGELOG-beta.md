@@ -1,3 +1,13 @@
+## [1.3.0-8](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-7...1.3.0-8) (2025-11-07)
+### Features
+
+* improve folder injection ([a08a811](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/a08a811765c216c3faf89020347716b10f630933))
+
+### Bug Fixes
+
+* prevent broken name ([4a2b6f0](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/4a2b6f01da70cfe71e144fad980ad0d39eabacab))
+* use promise ([43c2330](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/43c2330bc8684c12e2d3d86474285f422bdfcfd7))
+
 ## [1.3.0-7](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-6...1.3.0-7) (2025-11-06)
 ### Features
 
