@@ -3,7 +3,6 @@ import i18next from "i18next";
 import {
 	type App,
 	MarkdownRenderer,
-	Notice,
 	PluginSettingTab,
 	Setting,
 	sanitizeHTMLToDom,
@@ -23,79 +22,6 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		this.plugin = plugin;
 		this.settings = plugin.settings;
 		this.compiler = plugin.compiler;
-	}
-
-	async timeoutSettings(containerEl: HTMLElement) {
-		const timeOutdesc = sanitizeHTMLToDom(
-			`${i18next.t("settings.timeout.desc")}<br/>${i18next.t("settings.timeout.explain", {
-				code: "<code>timeout*10ms</code>",
-			})}<br>${i18next.t("settings.timeout.reload")}`
-		);
-
-		new Setting(containerEl).setDesc(timeOutdesc);
-		new Setting(containerEl)
-			.setName(i18next.t("settings.timeout.mobile"))
-			.setClass("no-border")
-			.setClass("left")
-			.setDesc(
-				sanitizeHTMLToDom(
-					`${i18next.t("settings.timeout.mobileDesc", {
-						calc: `<code>${(this.settings.maxTimeout.mobile * 10) / 1000}s</code>`,
-					})}`
-				)
-			)
-			.addText((text) => {
-				text.setValue(this.settings.maxTimeout.mobile.toString());
-				text.inputEl.onblur = async () => {
-					const value = parseInt(text.getValue(), 10);
-					if (!isNaN(value)) {
-						this.settings.maxTimeout.mobile = value;
-						await this.plugin.saveSettings();
-						//remove the error class if present
-						text.inputEl.classList.remove("spf-error");
-						await this.display();
-					} else {
-						new Notice(
-							sanitizeHTMLToDom(
-								`<span class="spf-warning">${i18next.t("settings.timeout.invalid")}</span>`
-							)
-						);
-						text.inputEl.classList.add("spf-error");
-					}
-				};
-			});
-
-		new Setting(containerEl)
-			.setName(i18next.t("settings.timeout.desktop"))
-			.setDesc(
-				sanitizeHTMLToDom(
-					`${i18next.t("settings.timeout.desktopDesc", {
-						calc: `<code>${(this.settings.maxTimeout.desktop * 10) / 1000}s</code>`,
-					})}`
-				)
-			)
-			.setClass("no-border")
-			.setClass("left")
-			.addText((text) => {
-				text.setValue(this.settings.maxTimeout.desktop.toString());
-				text.inputEl.onblur = async () => {
-					const value = parseInt(text.getValue(), 10);
-					if (!isNaN(value)) {
-						this.settings.maxTimeout.desktop = value;
-						await this.plugin.saveSettings();
-						//remove the error class if present
-						text.inputEl.classList.remove("spf-error");
-						await this.display();
-					} else {
-						new Notice(
-							sanitizeHTMLToDom(
-								`<span class="spf-warning">${i18next.t("settings.timeout.invalid")}</span>`
-							)
-						);
-						text.inputEl.classList.add("spf-error");
-					}
-				};
-			});
 	}
 
 	async display() {
@@ -259,17 +185,5 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					await this.compiler.injectStyles();
 				};
 			});
-
-		//create a spoiler for timeout settings
-		containerEl.createEl("hr");
-		const timeoutSpoiler = containerEl.createEl("details");
-		timeoutSpoiler.createEl("summary", {
-			text: i18next.t("settings.timeout.title"),
-			cls: "setting-item-name setting-item-heading spf-summary no-border",
-		});
-		const timeoutContainer = timeoutSpoiler.createEl("div", {
-			cls: "spf-timeout-container",
-		});
-		await this.timeoutSettings(timeoutContainer);
 	}
 }

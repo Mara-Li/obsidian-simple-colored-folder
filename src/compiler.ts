@@ -7,6 +7,11 @@ import {
 	type TAbstractFile,
 	TFolder,
 } from "obsidian";
+import type {
+	FileExplorerView,
+	FileExplorerViewFileItemsRecord,
+	FolderTreeItem,
+} from "obsidian-typings";
 import {
 	type Prefix,
 	type SimpleColoredFolderSettings,
@@ -156,68 +161,61 @@ export class ColorCompiler {
 			);
 	}
 
-	private getTimeout() {
-		if (this.app.isMobile) return this.settings.maxTimeout.mobile;
-		return this.settings.maxTimeout.desktop;
-	}
-
-	private getFileExplorerView() {
+	getFileExplorerView() {
 		const navigation = this.app.workspace.getLeavesOfType("file-explorer");
 		if (navigation.length === 0) return null;
 		return navigation[0].view;
 	}
 
-	async injectDataPathFromFolder(
-		folder: TFolder,
-		fileExplorer = this.getFileExplorerView()
-	) {
-		if (
-			!fileExplorer ||
-			!fileExplorer.containerEl ||
-			fileExplorer.containerEl.getAttr("data-type") === "undefined"
-		) {
-			console.warn("File explorer view not found");
+	async injectDataPathFromFolder(folder: TFolder, folderItem?: FolderTreeItem) {
+		if (!folderItem) folderItem = this.getFileItems(folder);
+		if (!folderItem) {
+			console.warn(`Folder item not found for folder: ${folder.path}`);
 			return;
 		}
-
-		let treeItems = fileExplorer.containerEl.querySelectorAll(
-			`.tree-item.nav-folder > .nav-folder-title[data-path="${folder.path}"]`
-		);
-
-		let timeout = 0;
-		const maxTimeout = this.getTimeout();
-		while (treeItems.length === 0 && timeout < maxTimeout) {
-			// biome-ignore lint/correctness/noUndeclaredVariables: sleep is a global function in obsidian
-			await sleep(10);
-			treeItems = fileExplorer.containerEl.querySelectorAll(
-				`.tree-item.nav-folder > .nav-folder-title[data-path="${folder.path}"]`
-			);
-			timeout++;
-		}
-
-		if (treeItems.length === 0) {
-			console.warn(`Failed to find DOM elements for folder: ${folder.path}`);
-			return;
-		}
-
-		treeItems.forEach((item) => {
-			const treeItem = item.closest(".tree-item.nav-folder");
-			if (treeItem) {
-				treeItem.setAttribute("data-path", folder.path);
-			}
-		});
+		folderItem.el.setAttribute("data-path", folder.path);
 	}
 
 	/**
 	 * Inject the data-path into the .tree-item.nav-folder
 	 */
-	async injectDataPath(folders: TFolder[] = this.getFolder()) {
-		const navigation = this.app.workspace.getLeavesOfType("file-explorer");
-		if (!navigation.length) return;
-		const fileExplorer = navigation[0].view;
-		for (const folder of folders) {
-			await this.injectDataPathFromFolder(folder, fileExplorer);
+	async injectDataPath(
+		folders: TFolder[] = this.getFolder(),
+		fileExplorer?: FileExplorerView
+	) {
+		if (!fileExplorer) {
+			const navigation = this.app.workspace.getLeavesOfType("file-explorer");
+			if (!navigation.length) return;
+			fileExplorer = navigation[0].view as FileExplorerView;
 		}
+
+		const fileItems = fileExplorer.fileItems;
+		//get the FileTreeItem corresponding to the folder
+		if (!fileItems) {
+			console.warn("File items not found in file explorer");
+			return;
+		}
+		for (const folder of folders) {
+			const folderItem = this.getFileItems(folder, fileItems);
+			if (!folderItem) {
+				console.warn(`Folder item not found for folder: ${folder.path}`);
+				continue;
+			}
+			await this.injectDataPathFromFolder(folder, folderItem as FolderTreeItem);
+		}
+	}
+
+	getFileItems(folder: TFolder, fileItems?: FileExplorerViewFileItemsRecord) {
+		if (!fileItems) {
+			const navigation = this.app.workspace.getLeavesOfType("file-explorer");
+			if (!navigation.length) return;
+			const fileExplorer = navigation[0].view as FileExplorerView;
+			fileItems = fileExplorer.fileItems;
+		}
+		const folderItem = fileItems[folder.path];
+		// It is impossible that the folderItem is a FileTreeItem as we are looking for a folder
+		if (!folderItem) return undefined;
+		return folderItem as FolderTreeItem;
 	}
 
 	async injectStyles(reload = true, folders?: TFolder[]) {

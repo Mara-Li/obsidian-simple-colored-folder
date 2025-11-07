@@ -1,6 +1,7 @@
 import dedent from "dedent";
 import i18next from "i18next";
 import { Notice, normalizePath, Plugin, sanitizeHTMLToDom, TFolder } from "obsidian";
+import type { FileExplorerView } from "obsidian-typings";
 import { merge } from "ts-deepmerge";
 import { ColorCompiler } from "./compiler";
 import { resources, translationLanguage } from "./i18n";
@@ -28,6 +29,7 @@ export default class SimpleColoredFolder extends Plugin {
 		this.snippetPath = normalizePath(
 			`${this.app.vault.configDir}/snippets/generated.colored-folder.css`
 		);
+
 		this.compiler = new ColorCompiler(this);
 		this.style = this.compiler.style;
 
@@ -55,8 +57,6 @@ export default class SimpleColoredFolder extends Plugin {
 				);
 			}
 			const folders = this.compiler.getFolder();
-			// biome-ignore lint/correctness/noUndeclaredVariables: sleep is a global function in obsidian
-			if (this.app.isMobile) await sleep(this.settings.maxTimeout.mobile);
 			// Run data-path injection and style injection in parallel. Use allSettled so one
 			// failing task doesn't prevent the other from completing; we log failures.
 			const tasks = [
@@ -76,6 +76,17 @@ export default class SimpleColoredFolder extends Plugin {
 				}
 			});
 		});
+		this.registerEvent(
+			this.app.workspace.on("layout-change", async () => {
+				//only if the layout opened is the file explorer
+				const navigation = this.app.workspace.getLeavesOfType("file-explorer");
+				if (!navigation.length || !navigation.first()?.isVisible()) return;
+				const fileExplorer = navigation.first()?.view as FileExplorerView;
+				if (!fileExplorer) return;
+				const folders = this.compiler.getFolder();
+				await this.compiler.injectDataPath(folders, fileExplorer);
+			})
+		);
 	}
 
 	onunload() {

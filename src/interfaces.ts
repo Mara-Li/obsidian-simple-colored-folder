@@ -16,10 +16,6 @@ export interface SimpleColoredFolderSettings {
 	 * See the first part of the style.css file for more information.
 	 */
 	includeStyleInExport: boolean;
-	maxTimeout: {
-		mobile: number;
-		desktop: number;
-	};
 }
 
 export type ThemedColors = {
@@ -52,10 +48,6 @@ export const DEFAULT_SETTINGS: SimpleColoredFolderSettings = {
 	exportToCSS: false,
 	defaultColors: DEFAULT_COLORS,
 	includeStyleInExport: false,
-	maxTimeout: {
-		mobile: 1000,
-		desktop: 1000,
-	},
 };
 
 export type StyleSettingValue = number | string | boolean;
