@@ -57,8 +57,18 @@ export default class SimpleColoredFolder extends Plugin {
 			const folders = this.compiler.getFolder();
 			// biome-ignore lint/correctness/noUndeclaredVariables: sleep is a global function in obsidian
 			if (this.app.isMobile) await sleep(this.settings.maxTimeout.mobile);
-			await this.compiler.injectDataPath(folders);
-			await this.compiler.injectStyles(true, folders);
+			// Run data-path injection and style injection in parallel. Use allSettled so one
+			// failing task doesn't prevent the other from completing; we log failures.
+			const tasks = [
+				this.compiler.injectDataPath(folders),
+				this.compiler.injectStyles(true, folders),
+			];
+			const results = await Promise.allSettled(tasks);
+			results.forEach((r, i) => {
+				if (r.status === "rejected") {
+					console.warn(`startup task ${i} failed`, r.reason);
+				}
+			});
 			this.app.vault.on("create", async (file) => {
 				await this.compiler.injectToRoot(file);
 				if (file instanceof TFolder && file.parent === this.app.vault.getRoot()) {
