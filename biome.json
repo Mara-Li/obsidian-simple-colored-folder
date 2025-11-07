@@ -1,6 +1,12 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
@@ -84,13 +90,21 @@
 	},
 	"overrides": [
 		{
-			"includes": ["**/*.ts", "**/*.tsx", "!**/*.js"]
+			"includes": [
+				"**/*.ts",
+				"**/*.tsx",
+				"!**/*.js"
+			]
 		},
 		{
-			"includes": ["**/*.js"]
+			"includes": [
+				"**/*.js"
+			]
 		},
 		{
-			"includes": ["**/*.json"]
+			"includes": [
+				"**/*.json"
+			]
 		}
 	],
 	"formatter": {
@@ -100,6 +114,9 @@
 		"lineWidth": 90
 	},
 	"javascript": {
+		"globals": [
+			"sleep"
+		],
 		"formatter": {
 			"quoteStyle": "double",
 			"semicolons": "always",
