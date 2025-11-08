@@ -1,33 +1,34 @@
+import dedent from "dedent";
+import i18next from "i18next";
 import {
 	type App,
 	MarkdownRenderer,
 	PluginSettingTab,
-	sanitizeHTMLToDom,
 	Setting,
+	sanitizeHTMLToDom,
 } from "obsidian";
-import type SimpleColoredFolder from "./main";
-import i18next from "i18next";
-import type { ColorCompiler } from "./compiler";
+import type { ColorInjector } from "./injector";
 import type { SimpleColoredFolderSettings } from "./interfaces";
-import { PickerSettingsComponent } from "./color-picker";
-import dedent from "dedent";
+import type SimpleColoredFolder from "./main";
+import { PickerSettingsComponent } from "./utils/color-picker";
 
 export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 	plugin: SimpleColoredFolder;
 	settings: SimpleColoredFolderSettings;
-	compiler: ColorCompiler;
+	compiler: ColorInjector;
 
 	constructor(app: App, plugin: SimpleColoredFolder) {
 		super(app, plugin);
 		this.plugin = plugin;
 		this.settings = plugin.settings;
-		this.compiler = plugin.compiler;
+		this.compiler = plugin.inject;
 	}
 
 	async display() {
 		const { containerEl } = this;
 
 		containerEl.empty();
+		this.containerEl.addClass(`spf`);
 		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
 		if (!styleSettings?._loaded) {
 			await MarkdownRenderer.render(
@@ -44,9 +45,6 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			return;
 		}
 
-		this.containerEl.addClass(`spf`);
-
-		containerEl.empty();
 		new Setting(containerEl)
 			.setName(i18next.t("settings.snippets.title"))
 			.setClass("no-border")
@@ -55,8 +53,8 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 				cb.setValue(this.settings.exportToCSS).onChange(async (value) => {
 					this.settings.exportToCSS = value;
 					await this.plugin.saveSettings();
-					await this.compiler.injectStyles();
-					this.display();
+					await this.compiler.styles();
+					await this.display();
 				})
 			);
 		if (this.settings.exportToCSS) {
@@ -68,7 +66,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					cb.setValue(this.settings.includeStyleInExport).onChange(async (value) => {
 						this.settings.includeStyleInExport = value;
 						await this.plugin.saveSettings();
-						await this.compiler.injectStyles();
+						await this.compiler.styles();
 					})
 				);
 		}
@@ -86,7 +84,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 				this.settings.defaultColors.bg.themeLight = value.themeLight;
 				this.settings.defaultColors.bg.themeDark = value.themeDark;
 				await this.plugin.saveSettings();
-				await this.compiler.injectStyles();
+				await this.compiler.styles();
 			}
 		);
 		new PickerSettingsComponent(
@@ -97,7 +95,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 				this.settings.defaultColors.color.themeLight = value.themeLight;
 				this.settings.defaultColors.color.themeDark = value.themeDark;
 				await this.plugin.saveSettings();
-				await this.compiler.injectStyles();
+				await this.compiler.styles();
 			}
 		);
 		this.containerEl.createEl("hr");
@@ -125,7 +123,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				});
 				text.inputEl.onblur = async () => {
-					await this.compiler.injectStyles();
+					await this.compiler.styles();
 				};
 			});
 
@@ -138,7 +136,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				});
 				text.inputEl.onblur = async () => {
-					await this.compiler.injectStyles();
+					await this.compiler.styles();
 				};
 			});
 
@@ -162,7 +160,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				});
 				text.inputEl.onblur = async () => {
-					await this.compiler.injectStyles();
+					await this.compiler.styles();
 				};
 			});
 		this.containerEl.createEl("hr");
@@ -184,7 +182,7 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				});
 				text.inputEl.onblur = async () => {
-					await this.compiler.injectStyles();
+					await this.compiler.styles();
 				};
 			});
 	}

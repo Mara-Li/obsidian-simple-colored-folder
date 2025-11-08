@@ -1,7 +1,6 @@
 import Pickr from "@simonwep/pickr";
 import { debounce, Setting } from "obsidian";
-import { DEFAULT_COLOR } from "./interfaces";
-import type { ThemedColors } from "./interfaces";
+import { DEFAULT_COLOR, type ThemedColors } from "../interfaces";
 
 export class PickerSettingsComponent extends Setting {
 	private pickrLight: Pickr;

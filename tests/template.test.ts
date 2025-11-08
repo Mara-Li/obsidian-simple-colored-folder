@@ -1,11 +1,12 @@
-import { describe, test, expect } from "bun:test";
+import { describe, expect, test } from "bun:test";
+import type { Colors, Prefix } from "../src/interfaces";
 import {
 	convertStyleSettings,
 	convertToCSS,
 	generateName,
 	themes,
-} from "../src/template";
-import type { Colors, Prefix } from "../src/interfaces";
+} from "../src/utils/template";
+
 const defaultColor: Colors = {
 	bg: {
 		themeLight: "#30479E59",
@@ -81,7 +82,7 @@ describe("convertStyleSettings", () => {
 		const template = "";
 		const result = convertStyleSettings(folderName, prefix, template, defaultColor);
 
-		expect(result).toContain(`title: Media`);
+		expect(result).toContain(`title: \"Media\"`);
 		expect(result).toContain(`id: scf-bg-media`); // lowercase 'media'
 		expect(result).toContain(`id: scf-color-media`); // lowercase 'media'
 		expect(result).toContain(`default-light: "${defaultColor.bg.themeLight}"`);
