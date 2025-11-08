@@ -3,8 +3,9 @@ import i18next from "i18next";
 import { Notice, normalizePath, Plugin, sanitizeHTMLToDom, TFolder } from "obsidian";
 import type { FileExplorerView } from "obsidian-typings";
 import { merge } from "ts-deepmerge";
-import { ColorCompiler } from "./compiler";
+import type { ColorGetter } from "./getter";
 import { resources, translationLanguage } from "./i18n";
+import { ColorInjector } from "./injector";
 import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces";
 import { SimpleColoredFolderSettingTab } from "./settings";
 
@@ -12,7 +13,8 @@ export default class SimpleColoredFolder extends Plugin {
 	settings!: SimpleColoredFolderSettings;
 	style: HTMLStyleElement | null = null;
 	snippetPath: string = "generated.colored-folder.css";
-	compiler!: ColorCompiler;
+	inject!: ColorInjector;
+	getter!: ColorGetter;
 
 	async onload() {
 		console.log(`[${this.manifest.name}] Loaded`);
@@ -30,21 +32,22 @@ export default class SimpleColoredFolder extends Plugin {
 			`${this.app.vault.configDir}/snippets/generated.colored-folder.css`
 		);
 
-		this.compiler = new ColorCompiler(this);
-		this.style = this.compiler.style;
+		this.inject = new ColorInjector(this);
+		this.getter = this.inject.getter;
+		this.style = this.inject.style;
 
 		this.addSettingTab(new SimpleColoredFolderSettingTab(this.app, this));
 		this.registerEvent(
 			this.app.vault.on("rename", async (file, oldPath) => {
-				await this.compiler.renameCss(file, oldPath);
+				await this.inject.renameCss(file, oldPath);
 				if (file instanceof TFolder && file.parent === this.app.vault.getRoot())
-					await this.compiler.injectDataPathFromFolder(file);
+					await this.getter.injectDataPathFromFolder(file);
 			})
 		);
 
 		this.registerEvent(
 			this.app.vault.on("delete", async () => {
-				await this.compiler.injectStyles();
+				await this.inject.styles();
 			})
 		);
 		this.app.workspace.onLayoutReady(async () => {
@@ -56,13 +59,11 @@ export default class SimpleColoredFolder extends Plugin {
 					)
 				);
 			}
-			const folders = this.compiler.getFolder();
+			const folders = this.getter.getFolderAtRoot();
 			// Run data-path injection and style injection in parallel. Use allSettled so one
 			// failing task doesn't prevent the other from completing; we log failures.
-			const tasks = [
-				this.compiler.injectDataPath(folders),
-				this.compiler.injectStyles(true, folders),
-			];
+			// noinspection ES6MissingAwait
+			const tasks = [this.inject.dataPath(folders), this.inject.styles(true, folders)];
 			const results = await Promise.allSettled(tasks);
 			results.forEach((r, i) => {
 				if (r.status === "rejected") {
@@ -70,9 +71,9 @@ export default class SimpleColoredFolder extends Plugin {
 				}
 			});
 			this.app.vault.on("create", async (file) => {
-				await this.compiler.injectToRoot(file);
+				await this.inject.toRoot(file);
 				if (file instanceof TFolder && file.parent === this.app.vault.getRoot()) {
-					await this.compiler.injectDataPathFromFolder(file);
+					await this.getter.injectDataPathFromFolder(file);
 				}
 			});
 		});
@@ -83,8 +84,8 @@ export default class SimpleColoredFolder extends Plugin {
 				if (!navigation.length || !navigation.first()?.isVisible()) return;
 				const fileExplorer = navigation.first()?.view as FileExplorerView;
 				if (!fileExplorer) return;
-				const folders = this.compiler.getFolder();
-				await this.compiler.injectDataPath(folders, fileExplorer);
+				const folders = this.getter.getFolderAtRoot();
+				await this.inject.dataPath(folders, fileExplorer);
 			})
 		);
 	}
@@ -92,8 +93,8 @@ export default class SimpleColoredFolder extends Plugin {
 	onunload() {
 		console.log(`[${this.manifest.name}] Unloaded`);
 		//remove the style
-		this.compiler.style?.detach();
-		this.compiler.style?.remove();
+		this.inject.style?.detach();
+		this.inject.style?.remove();
 		document.head.querySelector("#simple-colored-folder")?.remove();
 		this.app.workspace.trigger("css-change");
 	}

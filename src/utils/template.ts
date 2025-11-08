@@ -1,8 +1,14 @@
 import dedent from "dedent";
-import { type Colors, DEFAULT_COLOR, type Prefix } from "./interfaces";
+import {
+	type Colors,
+	DEFAULT_COLOR,
+	type Prefix,
+	type SimpleColoredFolderSettings,
+} from "../interfaces";
 import "uniformize";
 import i18next from "i18next";
-import { standardize } from "./utils";
+import type { PluginManifest, TFolder } from "obsidian";
+import { formatCss, removeExtraNewLine, standardize } from ".";
 
 export function generateName(prefix: Prefix, folder: string, cssVar = ""): Prefix {
 	return {
@@ -89,4 +95,70 @@ export function themes(
 				${vn.bg}: ${defaultColor.bg[theme]};
 				${vn.color}: ${color};
 	`);
+}
+
+export function styleSettingsHeader(manifest: PluginManifest) {
+	return dedent(`
+		/* @settings
+		name: ${manifest.name}
+		id: ${manifest.id}
+		settings:
+      -
+          id: spf-FolderRadius
+          type: variable-number
+          title: ${i18next.t("common.radius")}
+          description: "Format: px"
+          default: 5
+          format: px
+      -
+          id: spf-space-between
+          type: variable-number
+          default: 0.3
+          format: em
+          description: "Format: em"
+          title: ${i18next.t("common.space")}
+      -
+          id: spf-saturate
+          type: variable-number
+          default: 500
+          title: ${i18next.t("common.saturate")}
+          format: "%"
+          description: "Format: %"
+      -
+          id: spf-saturate-hover
+          default: 150
+          type: variable-number
+          format: "%"
+          title: ${i18next.t("common.saturateHover")}
+          description: "Format: %"
+      -`);
+}
+
+export function createStyles(
+	folders: TFolder[],
+	manifest: PluginManifest,
+	settings: SimpleColoredFolderSettings,
+	minify?: boolean
+) {
+	let darkTheme = `.theme-dark {`;
+	let lightTheme = `.theme-light {`;
+	let css = "";
+	let stylesSettings = styleSettingsHeader(manifest);
+	for (const folder of folders) {
+		const folderName = folder.name;
+		const vn = generateName(settings.prefix, folderName, "--");
+		darkTheme += themes(vn, settings.defaultColors, "themeDark");
+		lightTheme += themes(vn, settings.defaultColors, "themeLight");
+		css += convertToCSS(folderName, settings.prefix, settings.customTemplate);
+		stylesSettings += convertStyleSettings(
+			folderName,
+			settings.prefix,
+			settings.customStyleSettings,
+			settings.defaultColors
+		);
+	}
+	darkTheme += "}";
+	lightTheme += "}";
+	stylesSettings = `${stylesSettings.replace(/-+$/, "").trimEnd()}\n*/`;
+	return `\n${removeExtraNewLine(stylesSettings)}\n${formatCss(darkTheme, minify)}\n${formatCss(lightTheme, minify)}\n${formatCss(css, minify)}`;
 }
