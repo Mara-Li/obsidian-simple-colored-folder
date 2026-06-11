@@ -105,7 +105,7 @@ export default class SimpleColoredFolder extends Plugin {
 				DEFAULT_SETTINGS,
 				loadedData
 			) as unknown as SimpleColoredFolderSettings;
-		} catch (_e) {
+		} catch {
 			console.warn(
 				"[Simple colored folder] Error while deep merging settings, using default loading method"
 			);
