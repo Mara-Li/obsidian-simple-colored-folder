@@ -2,6 +2,7 @@ import dedent from "dedent";
 import i18next from "i18next";
 import {
 	type App,
+	Component,
 	MarkdownRenderer,
 	PluginSettingTab,
 	Setting,
@@ -31,6 +32,8 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		this.containerEl.addClass(`spf`);
 		const styleSettings = this.app.plugins.getPlugin("obsidian-style-settings");
 		if (!styleSettings?._loaded) {
+			const component = new Component();
+			component.load();
 			await MarkdownRenderer.render(
 				this.app,
 				dedent`> [!warning]
@@ -40,8 +43,9 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 				`,
 				this.containerEl,
 				"",
-				this.plugin
+				component
 			);
+			component.unload();
 			return;
 		}
 
@@ -100,7 +104,8 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 		);
 		this.containerEl.createEl("hr");
 		new Setting(containerEl).setName(i18next.t("settings.prefix.title")).setHeading();
-
+		const component = new Component();
+		component.load();
 		await MarkdownRenderer.render(
 			this.app,
 			dedent`
@@ -111,8 +116,9 @@ export class SimpleColoredFolderSettingTab extends PluginSettingTab {
 			`,
 			this.containerEl,
 			"",
-			this.plugin
+			component
 		);
+		component.unload();
 
 		new Setting(containerEl)
 			.setName(i18next.t("common.color"))
