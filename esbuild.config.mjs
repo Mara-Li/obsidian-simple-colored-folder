@@ -1,17 +1,17 @@
-import builtins from "builtin-modules";
+import { builtinModules as builtins } from "node:module";
+import { loadEnvFile } from "node:process";
 import { Command } from "commander";
-import dotenv from "dotenv";
 import esbuild from "esbuild";
 import * as fs from "fs";
 import * as path from "path";
 import manifest from "./manifest.json" with { type: "json" };
 import packageJson from "./package.json" with { type: "json" };
 
-// Initial configuration
-dotenv.config({ path: [".env"] });
+//verify that .env exists
+if (fs.existsSync(".env")) loadEnvFile();
 
-// Parsing command line arguments
 const program = new Command();
+// noinspection RequiredAttributes
 program
 	.option("-p, --production", "Production build")
 	.option("-v, --vault [vault]", "Use vault path", false)
@@ -128,11 +128,11 @@ async function buildPlugin() {
 		logLevel: "info",
 		sourcemap: isProd ? false : "inline",
 		treeShaking: true,
-		minify: isProd,
 		minifySyntax: isProd,
 		minifyWhitespace: isProd,
 		outdir: outDir,
 		plugins: getPlugins(outDir),
+		pure: isProd ? ["console.log", "console.trace", "console.debug"] : [],
 	});
 
 	console.log(`🚀 ${isProd ? "Production" : "Development"} build`);
