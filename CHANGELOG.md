@@ -1,3 +1,5 @@
+## [1.3.2](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.1...1.3.2) (2026-06-11)
+
 ## [1.3.1](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0...1.3.1) (2026-06-11)
 ### Bug Fixes
 
