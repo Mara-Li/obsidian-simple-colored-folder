@@ -10,7 +10,7 @@ import { DEFAULT_SETTINGS, type SimpleColoredFolderSettings } from "./interfaces
 import { SimpleColoredFolderSettingTab } from "./settings";
 
 export default class SimpleColoredFolder extends Plugin {
-	settings!: SimpleColoredFolderSettings;
+	declare settings: SimpleColoredFolderSettings;
 	style: HTMLStyleElement | null = null;
 	snippetPath: string = "generated.colored-folder.css";
 	inject!: ColorInjector;
