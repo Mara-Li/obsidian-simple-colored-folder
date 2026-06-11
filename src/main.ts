@@ -119,7 +119,7 @@ export default class SimpleColoredFolder extends Plugin {
 	async migrateSettings() {
 		if ("timeout" in this.settings) {
 			console.warn("[Simple colored folder] Migrating settings: removing timeout");
-			delete (this.settings as any)["timeout"];
+			delete this.settings["timeout"];
 			await this.saveSettings();
 		}
 	}
