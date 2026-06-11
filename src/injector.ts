@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/correctness/noUndeclaredVariables: activeDocument is declared globally by Obsidian */
 import {
 	type App,
 	normalizePath,
@@ -39,7 +40,7 @@ export class ColorInjector {
 			this.app.customCss.setCssEnabledStatus("generated.colored-folder", false);
 		}
 
-		const domStyle = document.head.querySelector<HTMLStyleElement>(
+		const domStyle = activeDocument.head.querySelector<HTMLStyleElement>(
 			"#simple-colored-folder"
 		);
 
@@ -51,11 +52,11 @@ export class ColorInjector {
 			this.style = null;
 		}
 
-		this.style = document.createElement("style");
+		this.style = activeDocument.createElement("style");
 		this.style.id = "simple-colored-folder";
 		this.style.setAttribute("type", "text/css");
 		this.style.textContent = content;
-		document.head.appendChild(this.style);
+		activeDocument.head.appendChild(this.style);
 	}
 
 	async toSnippets(content: string) {
