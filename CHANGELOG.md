@@ -1,3 +1,8 @@
+## [1.3.1](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0...1.3.1) (2026-06-11)
+### Bug Fixes
+
+* broken settings caused by text side ([f3186fa](https://github.com/Mara-Li/obsidian-simple-colored-folder/commit/f3186fadfa55b3b94a97276b1d4b70c4699ae1f2))
+
 ## [1.3.0](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.3.0-9...1.3.0) (2025-11-08)
 
 ## [1.2.3](https://github.com/Mara-Li/obsidian-simple-colored-folder/compare/1.2.2...1.2.3) (2025-10-13)
